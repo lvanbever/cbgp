@@ -1,0 +1,49 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp topology record-route [22m-- record the routes from all the topology
+
+[1mSYNOPSIS[0m
+     [1mrecord-route [22m[[1m---exact-match[22m] [[1m---output=[22m] [[1m---preserve-dups[22m] <[4mprefix[24m>
+
+[1mARGUMENTS[0m
+     [[1m---exact-match [4m[22mvalue[24m]
+      optionally performs exact-match
+
+     [[1m---output= [4m[22mvalue[24m]
+      optional output file
+
+     [[1m---preserve-dups [4m[22mvalue[24m]
+      optionally keep duplicate ASNs in paths
+
+     <[4mprefix[24m> destination prefix
+
+[1mDESCRIPTION[0m
+     This command performs a [1mrecord-route [22mfor each router in the topology.
+
+     The output can optionally be redirected to an output file using the
+     [4m--output[24m option.
+
+     Output format:
+
+
+     <src-as-num> <prefix> <as-path>
+
+
+
+     Example: For instance, here is the result of the EBGP_2_ROUTERS example.
+     The path from AS1 is "1" because it has advertised the prefix 0.1/16. The
+     path from AS2 is "2 1" because it has received a BGP message with the
+     prefix 0.1/16 from AS1.
+
+
+     1 0.1.0.0/16 1
+     2 0.1.0.0/16 2 1
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

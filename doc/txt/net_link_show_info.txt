@@ -1,0 +1,40 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet link show info [22m-- show configuration and status details
+
+[1mSYNOPSIS[0m
+     [1minfo[0m
+
+[1mDESCRIPTION[0m
+     This command show the configuration and status details of a link. This is
+     useful for debugging purposes as well as for retrieving the current load
+     of a link.
+
+     The output of this command is a list of name / value pairs, each on a
+     separate line. The value is separated from the name by a colon (':'). The
+     following example illustrates this format.
+
+
+     cbgp> net link 1.0.0.1 1.0.0.2 show info
+     iface    : 1.0.0.2/32
+     type     : rtr
+     dest     : 1.0.0.2
+     capacity : 0
+     delay    : 0
+     load     : 3
+     igp-depth: 1
+     tos00    : 1
+     cbgp>
+
+
+
+[1mSEE ALSO[0m
+     To change the load of a link, see command [1mnet node X record-route [22mand
+     command [1mnet traffic load [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

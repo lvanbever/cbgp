@@ -1,0 +1,19 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer filter remove-rule [22m-- remove a rule from a filter
+
+[1mSYNOPSIS[0m
+     [1mremove-rule [22m<[4mindex[24m>
+
+[1mARGUMENTS[0m
+     <[4mindex[24m> index of rule to remove
+
+[1mDESCRIPTION[0m
+     This command removes the rule at the [4mindex[24m specified as argument.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

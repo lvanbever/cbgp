@@ -1,0 +1,20 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp options local-pref [22m-- set the default LOCAL-PREF value
+
+[1mSYNOPSIS[0m
+     [1mlocal-pref [22m<[4mlocal-pref[24m>
+
+[1mARGUMENTS[0m
+     <[4mlocal-pref[24m> new default LOCAL-PREF value
+
+[1mDESCRIPTION[0m
+     This command changes the default LOCAL-PREF value of routes. The original
+     default value is 0.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

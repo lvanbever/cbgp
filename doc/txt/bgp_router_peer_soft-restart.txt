@@ -1,0 +1,24 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer soft-restart [22m-- activate soft-restart on a BGP session
+
+[1mSYNOPSIS[0m
+     [1msoft-restart[0m
+
+[1mDESCRIPTION[0m
+     This command activates "soft-restart" on a virtual peer. Soft-restart
+     allows virtual peers to keep their routes when their session is teared
+     down.
+
+     Since the routes available to virtual peers are learned through the [1mbgp[0m
+     [1mrouter peer recv [22mcommand, they are lost when the session with the virtual
+     peer is teared down. With the soft-restart option, the Adj-RIB-in corre-
+     sponding to the virtual peer is not cleared when the session is teared
+     down. These routes are therefore still available upon session restart.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

@@ -1,0 +1,20 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router del network [22m-- remove a network from one BGP router
+
+[1mSYNOPSIS[0m
+     [1mnetwork [22m<[4mprefix[24m>
+
+[1mARGUMENTS[0m
+     <[4mprefix[24m> the network's IP prefix
+
+[1mDESCRIPTION[0m
+     This command removes a local network previously added with [1mbgp router add[0m
+     [1mnetwork [22mcommand.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

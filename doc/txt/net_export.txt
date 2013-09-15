@@ -1,0 +1,32 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet export [22m-- exports the network topology to a file
+
+[1mSYNOPSIS[0m
+     [1mexport [22m[[1m---format=[22m] [[1m---output=[22m]
+
+[1mARGUMENTS[0m
+     [[1m---format= [4m[22mvalue[24m]
+      format of the output file
+
+     [[1m---output= [4m[22mvalue[24m]
+
+
+[1mDESCRIPTION[0m
+     This command exports the network topology. Various output formats are
+     available.
+
+
+           [4mcli[24m a script that can be loaded by c-bgp.
+
+           [4mdot[24m a format suitable for use with graphviz.
+
+           [4mntf[24m a custom 1-edge-per-line format.
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

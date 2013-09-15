@@ -1,0 +1,30 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp options med [22m-- set the behaviour of the BGP decision process regard-
+     ing the MED
+
+[1mSYNOPSIS[0m
+     [1mmed [22m<[4mmed-type[24m>
+
+[1mARGUMENTS[0m
+     <[4mmed-type[24m> new MED behaviour
+
+[1mDESCRIPTION[0m
+     This command changes the behaviour of the MED-based rule of the BGP deci-
+     sion process. Two modes are currently supported: [1mdeterministic [22mand
+     [1malways-compare [22m.
+
+
+     If the [1mdeterministic [22mmode is selected, then the MED-based rule will only
+     compare the MED value of routes received from the same AS.
+
+     If the [1malways-compare [22mmode is selected, then the MED-based rule will com-
+     pare the MEd value of routes even if they are received from different
+     neighbor ASes.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

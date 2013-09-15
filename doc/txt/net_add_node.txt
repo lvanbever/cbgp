@@ -1,0 +1,44 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet add node [22m-- add a node to the topology
+
+[1mSYNOPSIS[0m
+     [1mnode [22m[[1m---no-loopback[22m] <[4maddr[24m>
+
+[1mARGUMENTS[0m
+     [[1m---no-loopback [4m[22mvalue[24m]
+      disable loopback interface creation
+
+     <[4maddr[24m> address (identifier) of the new node
+
+[1mDESCRIPTION[0m
+     This command adds a new node to the topology. The node is identified by
+     an IP address ( [4maddr[24m ). This address must be unique and it must be dif-
+     ferent from 0.0.0.0.
+
+     By default, when a node is created, a loopback interface numbered with
+     the node's identifier is created. This behaviour can be changed by pro-
+     viding the [4m--no-loopback[24m option.
+
+     When created, a new node only supports IP routing as well as a simplified
+     ICMP protocol. If you want to add support for the BGP protocol, consider
+     using command [1mbgp add router [22m.
+
+     Here is how to create a simple 2 nodes topology:
+
+     net add node 1.0.0.1
+     net add node 1.0.0.2
+     net add link 1.0.0.1 1.0.0.2
+
+
+
+[1mSEE ALSO[0m
+     To create links, consider using commands [1mnet add link [22mand [1mnet add link-[0m
+     [1mptp [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

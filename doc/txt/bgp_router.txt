@@ -1,0 +1,32 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router [22m--
+
+[1mSYNOPSIS[0m
+     [1mrouter [22m<[4maddr[24m>
+
+[1mARGUMENTS[0m
+     <[4maddr[24m> the address (identifier) of the BGP router
+
+[1mSUB COMMANDS[0m
+     [1m+o   add[0m
+     [1m+o   assert[0m
+     [1m+o   debug[0m
+     [1m+o   del[0m
+     [1m+o   load[0m
+     [1m+o   peer[0m
+     [1m+o   record-route[0m
+     [1m+o   rerun[0m
+     [1m+o   rescan[0m
+     [1m+o   reset[0m
+     [1m+o   set[0m
+     [1m+o   show[0m
+     [1m+o   start[0m
+     [1m+o   stop[0m
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

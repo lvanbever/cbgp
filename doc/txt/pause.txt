@@ -1,0 +1,19 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mpause [22m-- wait for user input
+
+[1mSYNOPSIS[0m
+     [1mpause[0m
+
+[1mDESCRIPTION[0m
+     This command displays the message [4m``Paused:[24m [4mhit[24m [4m'Enter'[24m [4mto[24m [4mcontinue...''[0m
+     and consistently waits until the user press the [4mEnter[24m key. This command
+     can be used in verbose simulation scripts so that the user is able to
+     read the results.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

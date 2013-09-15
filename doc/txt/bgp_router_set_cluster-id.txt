@@ -1,0 +1,19 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router set cluster-id [22m-- change the cluster-id of one BGP router
+
+[1mSYNOPSIS[0m
+     [1mcluster-id [22m<[4mcluster-id[24m>
+
+[1mARGUMENTS[0m
+     <[4mcluster-id[24m> new cluster-id of the router
+
+[1mDESCRIPTION[0m
+     This command changes the cluster-id of one BGP router.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

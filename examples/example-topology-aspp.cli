@@ -1,0 +1,40 @@
+print "\e[37;1mEXAMPLE TOPOLOGY ASPP\e[0m\n"
+print "=====================\n"
+
+define SRC 21
+define DST 1239
+#define DST 3300
+define ASPP 6
+define OUTPUT "as$SRC-to$DST-prepend-$ASPP.dat"
+
+print "Prepend $ASPP times from AS$SRC to AS$DST\n"
+
+# Load the AS-level topology
+bgp topology load "subra-2004.topo"
+
+# Create routers and links
+bgp topology install
+
+# Setup routing filters
+bgp topology policies
+
+# Establish BGP sessions
+bgp topology run
+
+sim run
+
+# Dual-homed stub AS21
+# Providers: AS1239 (4.215.0.0)
+#            AS3300 (12.228.0.0)
+bgp router AS$SRC
+  peer AS$DST filter out add-rule
+    match any
+    action "as-path prepend $ASPP"
+
+# Announce prefix 255/8
+bgp router AS$SRC add network 255/8
+sim run
+
+# Dump all paths to file
+bgp topology record-route --output=$OUTPUT 255/8
+

@@ -1,0 +1,23 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp topology run [22m-- establish BGP sessions
+
+[1mSYNOPSIS[0m
+     [1mrun[0m
+
+[1mDESCRIPTION[0m
+     This command establishes the BGP sessions between all the routers loaded
+     by commands [1mbgp topology load [22mand [1mbgp topology install [22m. This is equiva-
+     lent to calling command [1mbgp router X peer up [22mon every session.
+
+     Note that this command will set the sessions administratively up. BGP
+     messages need to be exchanged to complete the sessions establishments.
+     These messages will be put into the simulator's queue. You will need to
+     issue a [1msim run [22mto process them.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

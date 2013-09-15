@@ -1,0 +1,34 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mprint [22m-- print a message
+
+[1mSYNOPSIS[0m
+     [1mprint [22m<[4mmessage[24m>
+
+[1mARGUMENTS[0m
+     <[4mmessage[24m> message to print
+
+[1mDESCRIPTION[0m
+     This command prints a [4mmessage[24m on the standard output (stdout). The print
+     command recognizes and interprets the escape sequences described in the
+     following table.
+
+           [1mEscape sequence    Description[0m
+           a                  Print an alert to the console. Usually, this
+                                             will be transformed into an
+                                             audible bell.
+           e                  Prints 033 to the console. This can be used to
+                                             send ECMA-48 sequences to the
+                                             console.
+           n                  Prints a new line.
+           r                  Prints a carriage return (returns to the
+                                             beginning of the line).
+           t                  Prints a tabulation.
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

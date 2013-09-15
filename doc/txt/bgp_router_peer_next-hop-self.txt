@@ -1,0 +1,41 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer next-hop-self [22m-- send the router ID as next-hop to this
+     peer
+
+[1mSYNOPSIS[0m
+     [1mnext-hop-self[0m
+
+[1mDESCRIPTION[0m
+     This command configures a router to replace the next-hop of routes
+     received from the specified peer by its own router ID when these routes
+     are redistributed. This is useful to distribute routes from an external
+     peer that has an eBGP session over a static route. The next-hop announced
+     by this peer is probably unreachable from the other routers in the
+     domain.
+
+     In the following example, router 1.0.0.1 has two peers: 2.0.0.1 is an
+     external peer (in AS2) while 1.0.0.2 is an internal peer. The command
+     [1mnext-hop-self [22minstructs router 1.0.0.1 to send routes received from
+     2.0.0.1 to 1.0.0.2 with a modified next-hop: its own router-ID (1.0.0.1
+     in this case). Without [1mnext-hop-self [22m, the next-hop would not have been
+     modified (it could for example be 2.0.0.1).
+
+
+     bgp router 1.0.0.1
+       add peer 2 2.0.0.1
+       peer 2.0.0.1 next-hop-self
+       add peer 1 1.0.0.2
+
+
+
+[1mSEE ALSO[0m
+     In place of the router ID, another next-hop value can be configured by
+     using command [1mnext-hop [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

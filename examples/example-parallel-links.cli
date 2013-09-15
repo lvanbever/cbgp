@@ -1,0 +1,26 @@
+print "\e[37;1mEXAMPLE PARALLEL-LINKS\e[0m\n"
+print "======================\n"
+
+net add node 1.0.0.0
+net add node 1.0.0.1
+net add link-ptp 1.0.0.0 192.168.0.1/30 1.0.0.1 192.168.0.2/30
+net add link-ptp 1.0.0.0 192.168.0.5/30 1.0.0.1 192.168.0.6/30
+
+net add domain 1 igp
+net node 1.0.0.0 domain 1
+net node 1.0.0.1 domain 1
+net node 1.0.0.0
+  iface 192.168.0.1 igp-weight 1
+  iface 192.168.0.5 igp-weight 1
+  exit
+net node 1.0.0.1
+  iface 192.168.0.2 igp-weight 1
+  iface 192.168.0.6 igp-weight 1
+  exit
+net domain 1 compute
+
+bgp add router 1 1.0.0.0
+bgp add router 1 1.0.0.1
+bgp domain 1 full-mesh
+
+bgp router 1.0.0.0 add network 255/8

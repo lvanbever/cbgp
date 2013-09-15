@@ -1,0 +1,22 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node traffic load [22m--
+
+[1mSYNOPSIS[0m
+     [1mload [22m[[1m---details[22m] [[1m---summary[22m] <[4mfilename[24m>
+
+[1mARGUMENTS[0m
+     [[1m---details [4m[22mvalue[24m]
+
+
+     [[1m---summary [4m[22mvalue[24m]
+
+
+     <[4mfilename[24m>
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

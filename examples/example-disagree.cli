@@ -1,0 +1,31 @@
+print "\e[37;1mEXAMPLE DISAGREE\e[0m\n"
+print "================\n"
+
+define MAX_STEPS 100
+
+print "\n"
+print "This script should not converge. A limit is set on the number\n"
+print "of simulation steps. When this limit is reached, the simulation\n"
+print "will be interrupted. The limit is set to $MAX_STEPS steps.\n"
+print "\n"
+
+bgp topology load "example-ebgp-3-routers.topo"
+bgp topology install
+
+bgp router AS1 add network 0.1/16
+
+bgp router AS2 peer AS3 filter in add-rule
+	match any
+	action "local-pref 100"
+
+bgp router AS3 peer AS2 filter in add-rule
+	match any
+	action "local-pref 100"
+
+bgp topology run
+
+sim stop --at=$MAX_STEPS
+sim run
+
+print "Done.\n"
+	

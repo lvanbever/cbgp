@@ -1,0 +1,125 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node record-route [22m-- trace the route from one router to a specific
+     destination
+
+[1mSYNOPSIS[0m
+     [1mrecord-route [22m[[1m---capacity[22m] [[1m---check-loop[22m] [[1m---deflection[22m] [[1m---delay[22m]
+                  [[1m---ecmp[22m] [[1m---load=[22m] [[1m---tos=[22m] [[1m---ttl=[22m] [[1m---tunnel[22m]
+                  [[1m---weight[22m] <[4maddress|prefix[24m>
+
+[1mARGUMENTS[0m
+     [[1m---capacity [4m[22mvalue[24m]
+      optionally report the path's capacity
+
+     [[1m---check-loop [4m[22mvalue[24m]
+      optionally check for forwarding loops
+
+     [[1m---deflection [4m[22mvalue[24m]
+      optionnaly check for path deflection
+
+     [[1m---delay [4m[22mvalue[24m]
+      optionnaly report the path's delay
+
+     [[1m---ecmp [4m[22mvalue[24m]
+      optionally discover ECMP paths
+
+     [[1m---load= [4m[22mvalue[24m]
+      optionally load the path with a traffic load
+
+     [[1m---tos= [4m[22mvalue[24m]
+      optionally use a different forwarding plane
+
+     [[1m---ttl= [4m[22mvalue[24m]
+      optional TTL limit
+
+     [[1m---tunnel [4m[22mvalue[24m]
+      optionally discover the path within tunnels
+
+     [[1m---weight [4m[22mvalue[24m]
+      optionally report the path's IGP weight
+
+     <[4maddress|prefix[24m> destination address or prefix
+
+[1mDESCRIPTION[0m
+     This command records the addresses of the nodes that packet sent from the
+     source [4maddress[24m traverse to reach the [4mdestination[24m address. The [4mdestination[0m
+     may be an IP address or an IP prefix. In the case of an IP address, the
+     trace stops only when a node with the specified address is reached. In
+     the case of an IP prefix, the trace stops as soon as a node with an IP
+     address that matches the specified prefix is reached.
+
+     Output format:
+
+
+     <source> <destination> <result> <num-hops> <list of hops> [options]
+
+
+
+     The value of [4mresult[24m is one of
+
+
+           [4mSUCCESS[24m The destination was reachable. In this case, the list of
+           hops is the list of the IP adresses of the traversed nodes.
+
+           [4mUNREACH[24m The destination was not reachable. In this case, the list
+           of hops is the list of IP addresses of the nodes traversed until no
+           route was available.
+
+           [4mTOO_LONG[24m The path towards the destination was too long (i.e. longer
+           than 30 hops). This is often the symptom of a routing loop.
+
+           [4mDOWN[24m there was a route to reach the destination, but a link down
+           was found on the way. This indicates a misconfiguration or routing
+           error. This can however occur in transient states, after a link has
+           been brought down and the routing has not reconverged. The last
+           node in the list of hops indicates the node adjacent to the failing
+           link.
+
+           [4mLOOP[24m If the option [4m--check-loop[24m has been specified and a forwarding
+           loop is found, then this status is reported.
+
+           [4mTUNNEL_UNREACH[24m The path went through a tunnel but the tunnel end-
+           point does not support the IP-in-IP protocol. Consider using the
+           [1mnet node ipip-enable [22m. The last node in the list of hops is the
+           address of the faulty node.
+
+           [4mTUNNEL_BROKEN[24m The path went through a tunnel but at a point the
+           tunnel end-point was not reachable. The last node in the list of
+           hops is the address of the faulty node.
+
+
+     Example:
+
+
+     cbgp> net node 1.0.0.1 record-route 1.0.0.2
+     1.0.0.1 1.0.0.2 SUCCESS 3       1.0.0.1 1.0.0.3 1.0.0.2
+     cbgp>
+
+
+
+     Here is another example that traces all the equal-cost paths (ECMP)
+     between two nodes:
+
+     cbgp> net node 1.0.0.0 record-route --ecmp 1.0.0.4
+     1.0.0.0 1.0.0.4 SUCCESS 4       1.0.0.0 1.0.0.1 1.0.0.3 1.0.0.4
+     1.0.0.0 1.0.0.4 SUCCESS 4       1.0.0.0 1.0.0.1 1.0.0.3 1.0.0.4
+     cbgp>
+
+
+
+[1mSEE ALSO[0m
+     See also commands [1mping [22mand [1mtraceroute [22mfor alternative ways to check the
+     reachability of nodes.
+
+[1mBUGS[0m
+     IMPORTANT NOTE: due to changes in the network topology data structure and
+     in the way tunnels are handled, the tunnel tracing feature is currently
+     broken. Tracing route through tunnels is therefore temporarily disabled.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

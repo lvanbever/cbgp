@@ -1,0 +1,48 @@
+print "\e[37;1mEXAMPLE TUNNEL\e[0m\n"
+print "==============\n"
+
+net add node 0.0.0.1
+net add node 0.0.0.2
+net add node 0.0.0.3
+net add node 0.0.0.4
+net add subnet 10.0.0/24 transit
+net add link-ptp 0.0.0.1 192.168.0.1/30 0.0.0.2 192.168.0.2/30
+net add link 0.0.0.1 0.0.0.3
+net add link 0.0.0.2 10.0.0.2/24
+net add link 0.0.0.3 0.0.0.4
+net add link 0.0.0.4 10.0.0.4/24
+
+net node 0.0.0.1 tunnel add 255.0.0.2 255.0.0.1
+net node 0.0.0.4 tunnel add 255.0.0.1 255.0.0.2
+
+net add domain 1 igp
+net node 0.0.0.1 domain 1
+net node 0.0.0.2 domain 1
+net node 0.0.0.3 domain 1
+net node 0.0.0.4 domain 1
+net node 0.0.0.1 iface 192.168.0.1 igp-weight 1
+net node 0.0.0.2 iface 192.168.0.2 igp-weight 1
+net link 0.0.0.1 0.0.0.3 igp-weight --bidir 1
+net node 0.0.0.2 iface 10.0.0.2 igp-weight 1
+net link 0.0.0.3 0.0.0.4 igp-weight --bidir 1
+net node 0.0.0.4 iface 10.0.0.4 igp-weight 1
+net domain 1 compute
+
+net node 0.0.0.4 add iface 255.0.0.255 loopback
+net node 0.0.0.1 route add 255.0.0.255/32 --oif=255.0.0.1 0
+
+print "Record-route:\n"
+net node 0.0.0.1 record-route 255.0.0.255
+print "\n"
+
+print "Record-route with ECMP:\n"
+net node 0.0.0.1 record-route --ecmp 255.0.0.255
+print "\n"
+
+print "Record-route with tunnel:\n"
+net node 0.0.0.1 record-route --tunnel 255.0.0.255
+print "\n"
+
+print "Record-route with tunnel+ECMP:\n"
+net node 0.0.0.1 record-route --ecmp --tunnel 255.0.0.255
+print "\n"

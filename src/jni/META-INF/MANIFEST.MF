@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Implementation-Title: CBGP
+Implementation-Vendor: "INGI"
+Main-Class: be.ac.ucl.ingi.cbgp.CBGP
+

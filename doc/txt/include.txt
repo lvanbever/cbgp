@@ -1,0 +1,20 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1minclude [22m-- process another C-BGP script
+
+[1mSYNOPSIS[0m
+     [1minclude [22m<[4mfile[24m>
+
+[1mARGUMENTS[0m
+     <[4mfile[24m> name of the C-BGP file to include
+
+[1mDESCRIPTION[0m
+     This command processes commands from another [4mfile[24m . The processing of the
+     given [4mfile[24m stops when its end is reached or as soon as an error occurs.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

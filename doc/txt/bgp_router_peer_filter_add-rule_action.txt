@@ -1,0 +1,53 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer filter add-rule action [22m-- defines the actions of a rule
+     in a filter
+
+[1mSYNOPSIS[0m
+     [1maction [22m<[4mactions[24m>
+
+[1mARGUMENTS[0m
+     <[4mactions[24m> the list of actions associated with the rule
+
+[1mDESCRIPTION[0m
+     This command defines the list of actions of the current rule. The list of
+     actions is provided as the command argument. The command [1maction [22mcan be
+     used multiple times within the same rule. Each action specified will be
+     appended to the list of actions of the rule.
+
+     The following actions are supported:
+
+           [1mAction expression    Description[0m
+           accept               accept the route
+           deny                 reject (deny) the route
+           call [4mR[24m               call route-map [4mR[0m
+           jump [4mR[24m               jump to route-map [4mR[0m
+           local-pref [4mL[24m         set the local-pref value to [4mL[0m
+           metric [4mM[24m             set the MED value to [4mM[0m
+           metric internal      set the MED value based on the IGP cost
+           community add [4mC[24m      add [4mC[24m [4mto[24m [4mthe[24m [4mcommunities[0m
+           community strip      remove all communities
+           community remove [4mC[24m   remove [4mC[24m [4mfrom[24m [4mthe[24m [4mcommunities[0m
+           as-path prepend [4mN[24m    prepend own ASN [4mN[24m [4mtimes[0m
+           as-path remove-private              remove private ASNs
+           red-community add [4mR[24m  add a redistribution community [4mR[0m
+
+
+     The action expression argument must be quoted (except for "accept" and
+     "deny" which are single words).
+
+     The following example defines a filter rule that prepends twice the AS-
+     path of routes with community 1 or community 2:
+
+     add-rule
+       match "community is 1 | community is 2"
+       action "as-path prepend 2"
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

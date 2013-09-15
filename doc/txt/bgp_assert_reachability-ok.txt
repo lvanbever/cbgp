@@ -1,0 +1,17 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp assert reachability-ok [22m-- check the reachability of BGP prefixes
+
+[1mSYNOPSIS[0m
+     [1mreachability-ok[0m
+
+[1mDESCRIPTION[0m
+     This command checks that all the prefixes announced by each BGP routers
+     are reachable by all the other BGP routers.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

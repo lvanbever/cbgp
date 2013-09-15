@@ -1,0 +1,22 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1msim clear [22m-- clear all the events from the simulation queue
+
+[1mSYNOPSIS[0m
+     [1mclear[0m
+
+[1mDESCRIPTION[0m
+     This command removes all events from the simulation queue. You should
+     normally not need this feature.
+
+[1mSEE ALSO[0m
+     Instead of removing all these poor events, you might want to process them
+     with command [1msim run [22m.
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

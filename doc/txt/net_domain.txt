@@ -1,0 +1,25 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet domain [22m-- enter one domain's context
+
+[1mSYNOPSIS[0m
+     [1mdomain [22m<[4mid[24m>
+
+[1mARGUMENTS[0m
+     <[4mid[24m> identifier of the node (integer)
+
+[1mDESCRIPTION[0m
+     Strictly speaking, this is not really a command. It rather allows you to
+     enter one domain's context and enter command that are specific to that
+     context.
+
+[1mSUB COMMANDS[0m
+     [1m+o   compute[0m
+     [1m+o   show[0m
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

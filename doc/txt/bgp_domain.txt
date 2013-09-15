@@ -1,0 +1,21 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp domain [22m--
+
+[1mSYNOPSIS[0m
+     [1mdomain [22m<[4mas-number[24m>
+
+[1mARGUMENTS[0m
+     <[4mas-number[24m> the identifier (ASN) of the domain (AS)
+
+[1mSUB COMMANDS[0m
+     [1m+o   full-mesh[0m
+     [1m+o   record-route[0m
+     [1m+o   rescan[0m
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

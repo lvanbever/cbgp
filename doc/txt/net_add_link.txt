@@ -1,0 +1,90 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet add link [22m-- add a link to the topology
+
+[1mSYNOPSIS[0m
+     [1mlink [22m[[1m---bw=[22m] [[1m---delay=[22m] [[1m---depth=[22m] <[4maddr-src[24m> <[4maddr-dst[24m>
+
+[1mARGUMENTS[0m
+     [[1m---bw= [4m[22mvalue[24m]
+      optional bandwidth
+
+     [[1m---delay= [4m[22mvalue[24m]
+      optional link delay
+
+     [[1m---depth= [4m[22mvalue[24m]
+      optional number of IGP weights
+
+     <[4maddr-src[24m> address of source node
+
+     <[4maddr-dst[24m> address of destination node
+
+[1mDESCRIPTION[0m
+     This command adds a new link between two existing nodes whose identifiers
+     are [4maddr-src[24m and [4maddr-dst[24m in the topology. The new link is bidirectional.
+
+     Link bandwidth and delay can be specified optionally using the following
+     options [4m--bw=[24m and [4m--delay=[24m .
+
+     The option [4m--depth[24m specifies the number of different IGP weights that can
+     be defined for this link. The default (without the option) is to support
+     a single IGP weight. IGP weights are used to compute shortest-path
+     routes. See commands [1mnet add domain [22mand [1mnet domain compute [22mfor more
+     details.
+
+     The following example shows how to add link between 2 nodes to create a
+     simple topology:
+
+     net add node 1.0.0.1
+     net add node 1.0.0.2
+     net add link 1.0.0.1 1.0.0.2
+
+     With the above example, nodes 1.0.0.1 and 1.0.0.2 will both have 2 inter-
+     faces: one loopback interface and one rtr interface which correspond to
+     the loopback of the linked node. This can be verified using command [1mnet[0m
+     [1mnode X show ifaces [22mas show in the following example:
+
+     cbgp> net node 1.0.0.1 show ifaces
+     lo      1.0.0.1/32
+     rtr     1.0.0.2/32
+
+
+
+     This command can also be used to add a link between a node and a "subnet"
+     (model of a LAN). To do this, the second node address ( [4maddr-dst[24m ) has a
+     different meaning. It is the identifier of the target subnet combined
+     with the address of the node's future interface on this subnet. This is
+     specified in a prefix form. The address part is the interface address.
+     The masked address and prefix length is the subnet identifier.
+
+     The following example show how to add a link between 2 nodes and a sub-
+     net. Nodes 1.0.0.1 and 1.0.0.2 will get new interfaces numbered
+     192.168.0.5 and 192.168.0.7 respectively.
+
+     net add node 1.0.0.1
+     net add node 1.0.0.2
+     net add subnet 192.168.0.0/16
+     net add link 1.0.0.1 192.168.0.5/16
+     net add link 1.0.0.2 192.168.0.7/16
+
+     In this case, nodes will also have 2 interfaces: one loopback interface
+     and one ptmp interface:
+
+     cbgp> net node 1.0.0.1 show ifaces
+     lo      1.0.0.1/32
+     ptmp    192.168.0.5/16
+
+
+
+[1mSEE ALSO[0m
+     To create a subnet, use command [1mnet add subnet [22m.
+
+     To add more detailled links (with specific interfaces and subnetting),
+     see command [1mnet add link-ptp [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

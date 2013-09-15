@@ -1,0 +1,42 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node traceroute [22m-- traces the route to another node
+
+[1mSYNOPSIS[0m
+     [1mtraceroute [22m<[4maddr[24m>
+
+[1mARGUMENTS[0m
+     <[4maddr[24m> destination node
+
+[1mDESCRIPTION[0m
+     This command traces the route from one node to another, much like the
+     classical [4mtraceroute[24m networking utility. It sends ICMP echo-request mes-
+     sages from the source note to the destination node with an increasing TTL
+     value.
+
+     The following example illustrates how to use the [1mtraceroute [22mcommand:
+
+     cbgp> net node 1.0.0.0 traceroute 1.0.0.4
+       1     1.0.0.1 (1.0.0.1)       icmp error (time-exceeded)
+       2     1.0.0.3 (1.0.0.3)       icmp error (time-exceeded)
+       3     1.0.0.4 (1.0.0.4)       reply
+     cbgp>
+
+
+
+     Although the [1mtraceroute [22mcommand sends its probes with the same mechanisms
+     (same protocol stack) as other messages in the simulation (especially
+     BGP), the messages sent by [1mtraceroute [22mare put in a separate simulation
+     queue which is processed immediately. This is the reason why there is no
+     need to run [1msim run [22mto process [1mtraceroute[0m
+
+[1mSEE ALSO[0m
+     See also commands [1mping [22mand [1mrecord-route [22mfor alternative ways to check the
+     reachability of nodes.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

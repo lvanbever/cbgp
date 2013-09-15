@@ -1,0 +1,50 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet domain compute [22m-- compute the IGP routes inside this domain
+
+[1mSYNOPSIS[0m
+     [1mcompute [22m[[1m---keep-spt[22m]
+
+[1mARGUMENTS[0m
+     [[1m---keep-spt [4m[22mvalue[24m]
+      optionally keep computed SPT in memory
+
+[1mDESCRIPTION[0m
+     This command computes the routes between all the nodes that belong to one
+     domain. How the computation is performed depends on the domain's type.
+     Basically, [4mC-BGP[24m only supports one domain type for the moment and it is
+     named [1migp [22m. In this model, the intradomain routes are the shortest-paths
+     according to the domain's link weights (see also [1mnet link igp-weight [22m).
+
+     Example:
+
+
+     # Create IGP domain 1 and assign nodes 0.1.0.1, 0.1.0.2
+     # and 0.1.0.3 to this domain
+     net add domain 1 igp
+     net node 0.1.0.1 domain 1
+     net node 0.1.0.2 domain 1
+     net node 0.1.0.3 domain 1
+
+     # Compute the shortest-paths between all the domain's nodes
+     net domain 1 compute
+
+
+
+     The computed SPTs can optionally be kept in memory if the option
+     [4m--keep-spt[24m is used. These SPTs can later be displayed or savec in a file
+     using command [1mnet node X show spt [22m.
+
+[1mSEE ALSO[0m
+     See command [1mnet add domain [22mto learn how to add IGP domains to the simula-
+     tion.
+
+     See command [1mnet node X domain [22mto learn how to put a node in an IGP
+     domain.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

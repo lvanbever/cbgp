@@ -1,0 +1,29 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mset mem-limit [22m-- set the memory limit of C-BGP
+
+[1mSYNOPSIS[0m
+     [1mmem-limit [22m<[4mvalue[24m>
+
+[1mARGUMENTS[0m
+     <[4mvalue[24m> new memory limit (in bytes)
+
+[1mDESCRIPTION[0m
+     This command changes the memory limit of [4mC-BGP[24m to a maximum of [4mvalue[0m
+     bytes, using the [1msetrlimit [22msystem call. Normally, there is no per-process
+     memory limitation enforced by the operating system. The memory allocation
+     will fail when there is no more physical memory and no more virtual mem-
+     ory available. However, in certain situations, reaching both the physical
+     and virtual memory limits may pose problems. Especially on some systems
+     (on Linux for instance) where the scheduler may kill the first applica-
+     tion that requests memory above the reached limits. Important applica-
+     tions may be killed even if the user who runs the simulator has no admin-
+     istrative privilege. We experienced such situation, so use this option
+     with large simulations!!!
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

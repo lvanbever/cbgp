@@ -1,0 +1,50 @@
+print "\e[37;1mEXAMPLE SESSION-UP-DOWN\e[0m\n"
+print "=======================\n"
+
+#sim options log-level everything
+
+net add node 0.0.1.1
+net add node 0.0.2.1
+net add node 0.0.3.1
+net add link 0.0.1.1 0.0.2.1
+net add link 0.0.2.1 0.0.3.1
+net node 0.0.1.1 route add 0.0.2.1/32 --oif=0.0.2.1/32 5
+net node 0.0.2.1 route add 0.0.1.1/32 --oif=0.0.1.1/32 5
+net node 0.0.2.1 route add 0.0.3.1/32 --oif=0.0.3.1/32 10
+net node 0.0.3.1 route add 0.0.2.1/32 --oif=0.0.2.1/32 10
+
+bgp add router 1 0.0.1.1
+bgp router 0.0.1.1
+	add network 0.0.1/24
+	add peer 2 0.0.2.1
+	peer 0.0.2.1 up
+
+bgp add router 2 0.0.2.1
+bgp router 0.0.2.1
+	add peer 1 0.0.1.1
+	add peer 3 0.0.3.1
+	peer 0.0.1.1 up
+	peer 0.0.3.1 up
+
+bgp add router 3 0.0.3.1
+bgp router 0.0.3.1
+	add peer 2 0.0.2.1
+	peer 0.0.2.1 up
+
+sim run
+
+print "RIB before session-reset\n"
+bgp router 0.0.2.1 show rib *
+print "RIB-in * before session-reset\n"
+bgp router 0.0.2.1 show adj-rib in * *
+
+bgp router 0.0.1.1 add network 0.0.1.128/25
+bgp router 0.0.1.1 peer 0.0.2.1 reset
+
+sim run
+
+print "RIB after session-reset\n"
+bgp router 0.0.2.1 show rib *
+print "RIB-in * after session-reset\n"
+bgp router 0.0.2.1 show adj-rib in * *
+print "Done.\n"

@@ -1,0 +1,22 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mset autoflush [22m-- enable/disable auto-flushing of the output
+
+[1mSYNOPSIS[0m
+     [1mautoflush [22m<[4mon|off[24m>
+
+[1mARGUMENTS[0m
+     <[4mon|off[24m> new auto-flush state
+
+[1mDESCRIPTION[0m
+     This command tells [4mC-BGP[24m to flush the output stream after any commands
+     which return information. This is important if the simulator is used by a
+     script which waits for a response to a command. The [1mCBGP.pm [22mPerl module
+     relies on this option.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

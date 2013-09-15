@@ -1,0 +1,91 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node tunnel add [22m-- add a tunnel
+
+[1mSYNOPSIS[0m
+     [1madd [22m[[1m---oif[22m] [[1m---src[22m] <[4mend-point[24m> <[4maddr[24m>
+
+[1mARGUMENTS[0m
+     [[1m---oif [4m[22mvalue[24m]
+      optional outgoing interface
+
+     [[1m---src [4m[22mvalue[24m]
+      optional source address
+
+     <[4mend-point[24m> the remote tunnel endpoint (an IP address)
+
+     <[4maddr[24m> the local tunnel identifier (an IP address)
+
+[1mDESCRIPTION[0m
+     This command adds a tunnel from one node towards the specified tunnel
+     [4mend-point[24m which is an IP address. The tunnel end-point should normally
+     identify the address of an existing network interface (though [4mC-BGP[24m will
+     not perform this verification). The local tunnel entry takes the form of
+     a virtual network interface which has the IP address specified with argu-
+     ment [4maddr[24m .
+
+     To make use of the tunnel, you will need to setup routing accordingly.
+     This is usually done with a static route with the tunnel interface as
+     outgoing interface. Messages that will be routed through the tunnel will
+     be encapsulated in a packet whose destination is the [4mend-point[24m address.
+     Such packets will therefore be forwarded to the [4mend-point[24m and decapsu-
+     lated there.
+
+     Important note: The tunnel end-point must also be a tunnel interface in
+     order for decapsulation to work.
+
+     Here is a "simple" example. The topology is composed of 4 nodes in a
+     line. Nodes 1.0.0.1, 1.0.0.2 and 1.0.0.3 belong to the same domain and
+     can reach each other thanks to IGP routes. Node 1.0.0.4 is only reachable
+     from 1.0.0.3 (through static routes). Node 1.0.0.1 has a tunnel to
+     1.0.0.3 and a static route towards 1.0.0.4/32 that goes into the tunnel.
+
+     net add node 1.0.0.1
+     net add node 1.0.0.2
+     net add node 1.0.0.3
+     net add node 1.0.0.4
+     net add link 1.0.0.1 1.0.0.2
+     net add link 1.0.0.2 1.0.0.3
+     net add link 1.0.0.3 1.0.0.4
+     net node 1.0.0.3 route add --oif=1.0.0.4 1.0.0.4/32 1
+     net node 1.0.0.4 route add --oif=1.0.0.3 0/0 1
+
+     net node 1.0.0.1 tunnel add 255.0.0.2 255.0.0.1
+     net node 1.0.0.3 tunnel add 255.0.0.1 255.0.0.2
+     net node 1.0.0.1 route add --oif=255.0.0.1 1.0.0.4/32 1
+
+     net add domain 1 igp
+     net node 1.0.0.1 domain 1
+     net node 1.0.0.2 domain 1
+     net node 1.0.0.3 domain 1
+     net link 1.0.0.1 1.0.0.2 igp-weight --bidir 1
+     net link 1.0.0.2 1.0.0.3 igp-weight --bidir 1
+     net domain 1 compute
+
+     Now if we perform a [1mrecord-route [22mfrom 1.0.0.1 to 1.0.0.4, we obtain the
+     following output:
+
+     cbgp> net node 1.0.0.1 record-route 1.0.0.4
+     1.0.0.1 1.0.0.4 SUCCESS 3       1.0.0.1 1.0.0.3 1.0.0.4
+     cbgp>
+
+     There seem to be a link between 1.0.0.1 and 1.0.0.3. This link does not
+     exist: it is the tunnel. It is possible to trace within the tunnel by
+     using the [4m--tunnel[24m option of record-route:
+
+     cbgp> net node 1.0.0.1 record-route 1.0.0.4 --tunnel
+     1.0.0.1 1.0.0.4 SUCCESS 4       1.0.0.1 [1.0.0.1 1.0.0.2 1.0.0.3] 1.0.0.3 1.0.0.4
+     cbgp>
+
+     The tunnel trace appears between brackets.
+
+[1mSEE ALSO[0m
+     To add a static route through that tunnel, you will need command [1mnet node[0m
+     [1mX route add [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

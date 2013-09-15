@@ -1,0 +1,23 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer filter add-rule [22m-- add a rule to a filter
+
+[1mSYNOPSIS[0m
+     [1madd-rule[0m
+
+[1mDESCRIPTION[0m
+     This command adds a rule to a filter. The rule will be added at the end
+     of the sequence of rules of the filter. When a rule is added, two sub-
+     commands can be used to define its predicate and actions. These sub-com-
+     mands are [1mmatch [22mand [1maction [22mrespectively.
+
+[1mSUB COMMANDS[0m
+     [1m+o   action[0m
+     [1m+o   match[0m
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

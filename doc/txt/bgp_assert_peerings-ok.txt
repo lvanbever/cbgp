@@ -1,0 +1,18 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp assert peerings-ok [22m-- check BGP peerings
+
+[1mSYNOPSIS[0m
+     [1mpeerings-ok[0m
+
+[1mDESCRIPTION[0m
+     This command checks that all the peerings defined in all the routers are
+     valid, i.e. for each peering, the existence of the peer is checked as
+     well as the existence of a similar peering definition in the peer.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

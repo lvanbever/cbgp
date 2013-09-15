@@ -1,0 +1,31 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer show info [22m-- show peer configuration and status details
+
+[1mSYNOPSIS[0m
+     [1minfo[0m
+
+[1mDESCRIPTION[0m
+     This command shows attributes of a peer as well as elements of its cur-
+     rent status. This is useful for debugging purposes.
+
+     Here is an example of the information provided:
+
+     cbgp> bgp router 1.0.0.2 peer 1.0.0.3 show info
+     address    : 1.0.0.3
+     asn        : 1
+     router-id  : 0.0.0.0
+     state      : OPENWAIT
+     snd-seq    : 1
+     rcv-seq    : 0
+     source-addr: 1.0.0.2
+     last-error : success
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

@@ -1,0 +1,75 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer filter add-rule match [22m-- defines the predicate of a rule
+     in a filter
+
+[1mSYNOPSIS[0m
+     [1mmatch [22m<[4mpredicate[24m>
+
+[1mARGUMENTS[0m
+     <[4mpredicate[24m> the predicate associated with the rule
+
+[1mDESCRIPTION[0m
+     This command defines the predicate of the current rule. The predicate is
+     provided as the command argument. The predicate is a logical combination
+     of atomic predicates. Each atomic predicate can be used to test a single
+     attribute of a route.
+
+     The following atomic predicates are supported:
+
+           [1mPredicate expression    Description[0m
+           any                     all routes
+           community is [4mC[24m          routes that contain community [4mC[0m
+           next-hop is [4mN[24m           routes whose next-hop is [4mN[0m
+           next-hop in [4mP[24m           routes whose next-hop is in [4mP[0m
+           prefix is [4mP[24m             routes whose prefix is [4mP[0m
+           prefix in [4mP[24m             routes whose prefix is in [4mP[0m
+           path [4mR[24m                  routes whose AS-path matches regexp [4mR[0m
+
+
+     The following example defines a filter rule that discards routes origi-
+     nated by AS11537 (11537 is the latest ASN in the AS-path):
+
+     add-rule
+       match 'path "11537$"'
+       action deny
+
+
+
+     When providing the predicate expression, care must be taken to correctly
+     enclose it with quotes. The [4mC-BGP[24m parser relies on a simple tokenization
+     mechanism that splits a line into tokens separated by spaces. There is an
+     exception for spaces that appear in quoted text. If you want to provide
+     an expression that contains multiple words, you need to quote it (using "
+     or '). Actually, all the predicate expressions except "any" (which is a
+     single word) need to be quoted.
+
+     Sometimes, quoting is also required by the atomic predicate. An example
+     is "path [4mR[24m " where [4mR[24m is a regular expression that needs to be quoted if
+     it includes spaces. In this case, two levels of quoting are required. One
+     option is to write "path
+
+     Atomic predicates can be combined using logic operators to form more com-
+     plex predicates. The supported operators are as follows:
+
+           [1mSymbol    Operator[0m
+           |         or
+           &         and
+           !         not
+
+
+     The following example defines a filter rule that prepends twice the AS-
+     path of routes with community 1 or community 2:
+
+     add-rule
+       match "community is 1 | community is 2"
+       action "as-path prepend 2"
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

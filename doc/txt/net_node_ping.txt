@@ -1,0 +1,54 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node ping [22m-- test the reachability of another node
+
+[1mSYNOPSIS[0m
+     [1mping [22m[[1m---ttl=[22m] <[4maddr[24m>
+
+[1mARGUMENTS[0m
+     [[1m---ttl= [4m[22mvalue[24m]
+      initial TTL of the ICMP echo-request message
+
+     <[4maddr[24m> destination address
+
+[1mDESCRIPTION[0m
+     This command tests the reachability of another node by sending a probe
+     message (like an ICMP echo-request) and waiting for an answer (ICMP echo-
+     reply). The command will only succeed if the destination node is also
+     able to reach the source node.
+
+     Example
+
+     cbgp> net node 1.0.0.0 ping 1.0.0.4
+     ping: reply from 1.0.0.4
+
+
+
+     The [4m--ttl[24m option can be used to limit the propagation of the ICMP echo-
+     request message, as shown in the following example:
+
+     cbgp> net node 1.0.0.0 ping --ttl=1 1.0.0.4
+     ping: icmp error (time-exceeded) from 1.0.0.1
+     cbgp> net node 1.0.0.0 ping --ttl=2 1.0.0.4
+     ping: icmp error (time-exceeded) from 1.0.0.3
+     cbgp> net node 1.0.0.0 ping --ttl=3 1.0.0.4
+     ping: reply from 1.0.0.4
+
+
+
+     Although the [1mping [22mcommand sends its probes with the same mechanisms (same
+     protocol stack) as other messages in the simulation (especially BGP), the
+     messages sent by [1mping [22mare put in a separate simulation queue which is
+     processed immediately. This is the reason why there is no need to run [1msim[0m
+     [1mrun [22mto process [1mping[0m
+
+[1mSEE ALSO[0m
+     See also commands [1mtraceroute [22mand [1mrecord-route [22mfor alternative ways to
+     check the reachability of nodes.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

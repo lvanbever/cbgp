@@ -1,0 +1,19 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node iface up [22m-- enable an interface
+
+[1mSYNOPSIS[0m
+     [1mup[0m
+
+[1mDESCRIPTION[0m
+     This command enables a network interface.
+
+[1mSEE ALSO[0m
+     This can also be achieved using commands such as [1mnet link X up [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

@@ -1,0 +1,47 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router add peer [22m-- add a new neighbor to a BGP router
+
+[1mSYNOPSIS[0m
+     [1mpeer [22m<[4mas-num[24m> <[4maddr[24m>
+
+[1mARGUMENTS[0m
+     <[4mas-num[24m> ASN of the new neighbor
+
+     <[4maddr[24m> IP address of the new neighbor
+
+[1mDESCRIPTION[0m
+     This command adds a new neighbor to one BGP router. The new neighbor has
+     the address [4maddr[24m and belongs to the domain with ASN [4mas-num[24m . This command
+     also configures for this neighbor default input and output filters that
+     will accept any route. See the [1mbgp router peer filter [22mfor more informa-
+     tion about the route filters.
+
+     The following example illustrates how to declare an internal (iBGP) ses-
+     sion between two routers. The [1mbgp add router [22mis used to declare both
+     routers in AS1. The [1madd peer [22mcommand is used to declare the BGP neigh-
+     bors. On router 1.0.0.1, the command declares neighbor 1.0.0.2 in AS1.
+     There is no explicit mention that it is an iBGP session. This is derived
+     from the fact that the local router and the neighbor are in the same AS.
+
+
+
+     bgp add router 1 1.0.0.1
+     bgp router 1.0.0.1
+       add peer 1 1.0.0.2
+       peer 1.0.0.2 up
+       exit
+
+     bgp add router 1 1.0.0.2
+     bgp router 1.0.0.2
+       add peer 1 1.0.0.1
+       peer 1.0.0.1 up
+       exit
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

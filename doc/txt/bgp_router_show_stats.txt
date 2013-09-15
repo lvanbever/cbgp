@@ -1,0 +1,34 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router show stats [22m-- show statistics about a router
+
+[1mSYNOPSIS[0m
+     [1mstats[0m
+
+[1mDESCRIPTION[0m
+     This command shows various statistics about a router. The currently
+     available statistics are: the number of peers, the number of locally
+     originated networks, the number of best routes, the number of times each
+     rule of the decision process was used and the number of prefixes learned
+     by each peer. This command is mainly used for debugging purposes. Its
+     output format might change without notice.
+
+     Here is an example output:
+
+     cbgp> bgp router 1.0.0.2 show stats
+     num-peers: 2
+     num-networks: 1
+     num-best: 3
+     rule-stats: 2 0 0 0 0 0 0 0 1 0 0 0
+     num-prefixes/peer:
+     AS1:1.0.0.1: 1 / 1
+     AS1:1.0.0.3: 1 / 2
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

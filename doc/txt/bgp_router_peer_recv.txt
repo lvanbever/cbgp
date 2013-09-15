@@ -1,0 +1,50 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer recv [22m-- feed C-BGP with real BGP messages
+
+[1mSYNOPSIS[0m
+     [1mrecv [22m<[4mmrt-record[24m>
+
+[1mARGUMENTS[0m
+     <[4mmrt-record[24m> BGP message in ASCII MRT format
+
+[1mDESCRIPTION[0m
+     This command feeds one router with real BGP messages through one peer.
+     The specified peer must be virtual (see [1mbgp router peer virtual [22m). The
+     BGP message must be provided in ASCII MRT format. Only UPDATE (A) and
+     WITHDRAW (W) messages are accepted.
+
+     The MRT messages syntax is as follows:
+
+
+     BGP4|<time>|A|<router>|<as>|<prefix>|<path>|<origin>|<next-hop>|<pref>|<med>|
+     BGP4|<time>|W|<router>|<as>|<prefix>
+
+     where the [4mtime[24m field is an integer representing the time when the message
+     was received (this field is currently not used by [4mC-BGP[24m ). The [4mrouter[0m
+     field contains the IP address of the router where the route was col-
+     lected. The [4mas[24m field is the ASN of the router where the route was col-
+     lected. The [4mprefix[24m field represents the IP prefix of the route. The [4mpath[0m
+     field is the AS-path of the route. It must be a space-separated list of
+     AS numbers. The [4morigin[24m field contains the origin of the route. The [4morigin[0m
+     can be one of [1mIGP [22m, [1mEGP [22mor [1mINCOMPLETE [22m. The [4mpref[24m field contains the value
+     of the LOCAL-PREF attribute of the route. It must be a positive integer.
+     Finally, the [4mmed[24m field contains the value of the MED attribute of the
+     route. It must also be a positive integer.
+
+     Example:
+
+
+     cbgp> bgp router 0.1.0.1 peer 0.2.0.1 recv "BGP4|0|A|10.0.0.1|1|30.0.1/24|20 30|IGP|20.0.0.1|0|0|"
+
+
+
+[1mSEE ALSO[0m
+     Use command [1mvirtual [22mto make a peer virtual.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

@@ -1,0 +1,56 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer filter [22m-- define a session filter
+
+[1mSYNOPSIS[0m
+     [1mfilter [22m<[4min|out[24m>
+
+[1mARGUMENTS[0m
+     <[4min|out[24m> filter direction
+
+[1mDESCRIPTION[0m
+     This command can be used to associate an input or an output filter to a
+     BGP session with a peer. The direction of the filter is specified using
+     the argument [1min|out [22m. If the argument is "in", the filter is an input
+     filter, i.e. it will be applied on routes received from the peer. If the
+     argument is "out", the filter is an output filter, i.e. it will be
+     applied on routes sent to the peer.
+
+     A filter is composed of a sequence of rules. You can add rules to an
+     existing filter using command [1madd-rule [22m.
+
+     Here is an example script that defines an output filter for routes sent
+     by router 1.0.0.1 to its peer 1.0.0.2. The filter is composed of two
+     rules. The first rule rejects (denies) all routes that have community 1.
+     The second rule accepts all remaining routes.
+
+     bgp router 1.0.0.1 peer 1.0.0.2
+       filter out
+         add-rule
+           match "community is 1"
+           action "deny"
+           exit
+         add-rule
+           match "any"
+           action "accept"
+           exit
+
+
+
+[1mSUB COMMANDS[0m
+     [1m+o   add-rule[0m
+     [1m+o   insert-rule[0m
+     [1m+o   remove-rule[0m
+     [1m+o   show[0m
+
+[1mSEE ALSO[0m
+     It is possible to show the content of a filter using the command [1mbgp[0m
+     [1mrouter X peer Y filter in/out show [22m.
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

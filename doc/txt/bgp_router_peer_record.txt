@@ -1,0 +1,24 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer record [22m-- store all messages sent by this peer in a file
+
+[1mSYNOPSIS[0m
+     [1mrecord [22m<[4mfile[24m>
+
+[1mARGUMENTS[0m
+     <[4mfile[24m> name of output file
+
+[1mDESCRIPTION[0m
+     This command configure a peer to store every BGP message it sends into a
+     file whose name is specified as argument.
+
+[1mSEE ALSO[0m
+     The output format for BGP messages can be changed using command [1mbgp[0m
+     [1moptions show-mode [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

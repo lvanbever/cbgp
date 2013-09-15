@@ -1,0 +1,28 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router show adj-rib [22m-- show the content of the adj-RIB
+
+[1mSYNOPSIS[0m
+     [1madj-rib [22m[[1m---output=[22m] <[4min|out[24m> <[4mpeer[24m> <[4mprefix|address|*[24m>
+
+[1mARGUMENTS[0m
+     [[1m---output= [4m[22mvalue[24m]
+      optional output file
+
+     <[4min|out[24m> adj-RIB direction
+
+     <[4mpeer[24m> peer whose adj-RIB must be shown
+
+     <[4mprefix|address|*[24m> destination of interest
+
+[1mDESCRIPTION[0m
+     This command can be used to show the content of the input or output adj-
+     RIB of a peer. The commands works similarly to [1mshow rib [22mexcept that a
+     direction ( [4min|out[24m ) and a [4mpeer[24m can be specified.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

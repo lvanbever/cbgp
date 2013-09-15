@@ -1,0 +1,64 @@
+Author:
+-------
+
+C-BGP is written and maintained by Bruno Quoitin
+(bruno.quoitin@uclouvain.be) within the Computer Science and
+Engineering Department at the Universite Catholique de Louvain (UCL),
+in Belgium.
+
+Contributors:
+-------------
+
+* Bruno Quoitin (UCL, Belgium)
+    is the main author.
+
+* Virginie Van den Schrieke (UCL, Belgium)
+    is currently implementing a model of HLP in C-BGP.
+
+* Sebastien Tandel (former UCL member)
+    wrote the initial Python module that interfaces with C-BGP and
+    contributed to the integration within the TOTEM toolbox (loading
+    XML topologies). He also improved the BGP filters by adding
+    route-maps and regular expressions on AS-Paths. He worked on
+    building a C-BGP model of a large transit network (more). In
+    addition, he is investigating forwarding deflection that may occur
+    due to route-reflection.
+
+* Stefano Iasi (Politecnico di Torino, Italy)
+    worked on an OSPF model for C-BGP that supports multiple areas and
+    Equal-Cost Multiple Paths (ECMP). He also investigated the
+    forwarding deflection that may occur in OSPF networks.
+
+* Cedric de Launois (former UCL member)
+    helped writing the initial autoconf/automake scripts.
+
+
+Acknowledgments:
+----------------
+
+The authors are grateful for the numerous comments and advices
+provided by the following persons: Cristel Pelsser, Steve Uhlig,
+Olivier Bonaventure (UCL, Belgium), Olivier Delcourt, Simon Balon,
+Jean Lepropre, Gael Monfort, Fabian Skivee and Guy Leduc (ULg,
+Belgium), Wolfgang Muelbauer, Olaf Maennel and Anja Feldmann (TUM,
+Germany), Gregory Culpin, Chris Erway (Brown University, USA), Ricardo
+Oliveira (UCLA, USA), Wang Lijun (Tsinghua University, China), Joseph
+Emeras (LIRMM, France), Marco Ruffini (University of Dublin, Ireland),
+Didier Bousser (WANDL), Tomasz Szewczyk (PSNC, Poland), Tim Griffin
+(University of Cambridge), Stefano Secci (ENST, Paris), Selin
+Cerav-Erbas, Jean-Francois Paque, Nicolas Fournier, Tarek Guerniche,
+Nick Feamster (Georgia Tech, USA), Amir H Rasti (U. of Oregon, USA),
+Arnaud Coomans (UCL, Belgium), Adhy S. Bramantyo (ITB, Indonesia),
+Andrea di Menna and Luca Cittadini (Universita Roma Tre, Italy). The
+authors would also like to thank Vincent Letocart for discussions
+about C programming. We are also grateful to Dan Ardelean for his
+libbgpdump library.
+
+
+Funding:
+--------
+
+This work was supported by the European Commission within the ATRIUM
+project and is now being continued under the WIST TOTEM project. This
+work is also partly supported by the European Commission within the
+E-Next Network of Excellence.

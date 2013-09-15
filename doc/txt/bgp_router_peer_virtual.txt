@@ -1,0 +1,24 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer virtual [22m-- configure a BGP session as virtual
+
+[1mSYNOPSIS[0m
+     [1mvirtual[0m
+
+[1mDESCRIPTION[0m
+     This command configures one BGP neighbor as "virtual". A virtual peer is
+     used to feed [4mC-BGP[24m with real BGP messages (see [1mbgp router peer recv [22m). A
+     virtual peer does not maintain a BGP session with another BGP router in
+     the simulation. Moreover, the router will not send BGP messages to a vir-
+     tual peer.
+
+[1mSEE ALSO[0m
+     This command is best used in combination with command [1mrecv [22mto inject real
+     BGP routes in the simulation.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

@@ -1,0 +1,175 @@
+# ===================================================================
+# C-BGP Export file (CLI)
+# generated on Thu Oct 16 11:59:31 2008
+# ===================================================================
+
+# -------------------------------------------------------------------
+# Physical topology
+# -------------------------------------------------------------------
+net add node --no-loopback 1.0.0.1
+net add node --no-loopback 1.0.0.2
+net add node --no-loopback 1.0.0.3
+net add subnet 10.0.0.0/8 transit
+net node 1.0.0.1 name "R1_1"
+net node 1.0.0.1 add iface 1.0.0.1/32 loopback
+net add link 1.0.0.1 10.0.0.1/8
+net node 1.0.0.2 name "R1_2"
+net node 1.0.0.2 add iface 1.0.0.2/32 loopback
+net add link 1.0.0.2 10.0.0.2/8
+net node 1.0.0.3 name "R1_3"
+net node 1.0.0.3 add iface 1.0.0.3/32 loopback
+net add link 1.0.0.3 10.0.0.3/8
+
+net add node --no-loopback 2.0.0.1
+net add node --no-loopback 2.0.0.2
+net add subnet 20.0.0.0/8 transit
+net node 2.0.0.1 name "R2_1"
+net node 2.0.0.1 add iface 2.0.0.1/32 loopback
+net add link 2.0.0.1 20.0.0.1/8
+net node 2.0.0.2 name "R2_2"
+net node 2.0.0.2 add iface 2.0.0.2/32 loopback
+net add link 2.0.0.2 20.0.0.2/8
+
+# -------------------------------------------------------------------
+# Static routing
+# -------------------------------------------------------------------
+net node 1.0.0.1 route add 128.0.0.4/30 10 --oif=10.0.0.1
+net node 1.0.0.1 route add 128.0.0.8/30 5 --gw=2.0.0.1
+
+# -------------------------------------------------------------------
+# IGP routing
+# -------------------------------------------------------------------
+net add domain 1 igp
+net node 1.0.0.1 domain 1
+net node 1.0.0.2 domain 1
+net node 1.0.0.3 domain 1
+net node 1.0.0.1 iface 10.0.0.1/8 igp-weight 1
+net node 1.0.0.2 iface 10.0.0.2/8 igp-weight 1
+net node 1.0.0.3 iface 10.0.0.3/8 igp-weight 1
+net domain 1 compute
+
+net add domain 2 igp
+net node 2.0.0.1 domain 2
+net node 2.0.0.2 domain 2
+net node 2.0.0.1 iface 20.0.0.1/8 igp-weight 1
+net node 2.0.0.2 iface 20.0.0.2/8 igp-weight 1
+net domain 2 compute
+
+# -------------------------------------------------------------------
+# BGP routing
+# -------------------------------------------------------------------
+
+bgp route-map "rm1"
+  add-rule
+    match "any"
+    action "local-pref 200"
+
+bgp route-map "rm2"
+  add-rule
+    match "any"
+    action "local-pref 300"
+    exit
+  add-rule
+    match "any"
+    action "as-path prepend 2"
+
+bgp add router 1 1.0.0.1
+bgp router 1.0.0.1
+  add network 1.0.1/24
+  add peer 1 1.0.0.2
+  peer 1.0.0.2
+    update-source 1.0.0.1
+    up
+    exit
+  add peer 1 1.0.0.3
+  peer 1.0.0.3
+    update-source 1.0.0.1
+    up
+  exit
+
+bgp add router 1 1.0.0.2
+bgp router 1.0.0.2
+  add network 1.0.2/24
+  add peer 1 1.0.0.1
+  peer 1.0.0.1
+    update-source 1.0.0.2
+    up
+    exit
+  add peer 1 1.0.0.3
+  peer 1.0.0.3
+    update-source 1.0.0.2
+    up
+    exit
+  exit
+
+bgp add router 1 1.0.0.3
+bgp router 1.0.0.3
+  add network 1.0.3/24
+  add peer 1 1.0.0.1
+  peer 1.0.0.1
+    rr-client
+    update-source 1.0.0.3
+    up
+    exit
+  add peer 1 1.0.0.2
+  peer 1.0.0.2
+    rr-client
+    update-source 1.0.0.3
+    filter out
+      add-rule
+        match "community is 1 | community is 2"
+        action "local-pref 100"
+	action "metric internal"
+	action "community strip"
+	action "community add 3:2"
+	action "metric 100"
+	action "community remove 4:5"
+	action "as-path prepend 5"
+	action "as-path remove-private"
+	action accept
+	action deny
+	#action "jump \"rm1\""
+	#action "call \"rm2\""
+        exit
+      add-rule
+        match "next-hop is 192.168.0.1"
+        action accept
+        exit
+      add-rule
+        match "next-hop in 192.168.0/24"
+        action accept
+        exit
+      add-rule
+        match "prefix is 172.0/16"
+        action accept
+        exit
+      add-rule
+        match "prefix in 172.0/16"
+        action accept
+        exit
+      add-rule
+        match "prefix ge 172.0/16 20"
+        action accept
+        exit
+      add-rule
+        match "prefix le 172.0/16 20"
+        action accept
+        exit
+      add-rule
+        match 'path "$2611^"'
+        action accept
+        exit
+      add-rule
+        match any
+        action "red-community add prepend 3 20965"
+        exit
+      add-rule
+        match any
+        action "red-community add ignore 11537"
+        exit
+      exit
+    up
+  exit
+
+#bgp router 1.0.0.3 peer 1.0.0.2 filter out show
+net export

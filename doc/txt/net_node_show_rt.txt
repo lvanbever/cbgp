@@ -1,0 +1,52 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node show rt [22m-- show one node's routing/forwarding table
+
+[1mSYNOPSIS[0m
+     [1mrt [22m<[4mprefix|address|*[24m>
+
+[1mARGUMENTS[0m
+     <[4mprefix|address|*[24m> filter for route destination
+
+[1mDESCRIPTION[0m
+     This command shows the content of the routing table of one node. The com-
+     mand takes one parameter to filter the output. The filter parameters can
+     be an IP address, an IP prefix or a wildcard (*). If the filter is an IP
+     address, the result will contain the routes that match the address (best-
+     match). If the filter is an IP prefix, the result will only contain the
+     routes towards this prefix (exact-match). Finally, if a wildcard is
+     given, all the routes will be shown.
+
+     Output format:
+
+
+     <prefix> <gateway> <out-iface> <metric> <type>
+
+     where the [4mtype[24m field can take one of the following values:
+
+           [1mValue    Description[0m
+           STATIC   The route was statically installed with theSy net node
+                                   route add command.
+           IGP      The route was computed by theSy net domain compute
+                                   command.
+           BGP      The route was learned by BGP and selected as best.
+
+     Example:
+
+
+     cbgp> net node 1.0.0.1 show rt *
+     1.0.0.2/32      0.0.0.0 1.0.0.2 1       STATIC
+     1.0.0.3/32      0.0.0.0 1.0.0.2 1       STATIC
+     cbgp> net node 1.0.0.2 show rt *
+     1.0.0.1/32      0.0.0.0 1.0.0.1 1       STATIC
+     1.0.0.3/32      192.168.0.2     ---     1       STATIC
+     192.168.0.0/24  0.0.0.0 192.168.0.1     1       STATIC
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

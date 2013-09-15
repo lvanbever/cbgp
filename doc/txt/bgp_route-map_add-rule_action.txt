@@ -1,0 +1,20 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp route-map add-rule action [22m-- defines the actions of a rule in a
+     route-map
+
+[1mSYNOPSIS[0m
+     [1maction [22m<[4mactions[24m>
+
+[1mARGUMENTS[0m
+     <[4mactions[24m>
+
+[1mDESCRIPTION[0m
+     See [1mbgp router X peer Y filter in/out add-rule action [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

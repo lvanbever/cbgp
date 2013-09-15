@@ -1,0 +1,21 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node domain [22m-- set the domain one node belongs to
+
+[1mSYNOPSIS[0m
+     [1mdomain [22m<[4mid[24m>
+
+[1mARGUMENTS[0m
+     <[4mid[24m> new node's domain ID
+
+[1mDESCRIPTION[0m
+     This command makes the node belong to the specified IGP domain. This com-
+     mand is used in combination with the [1mnet domain compute [22m, to build the
+     intradomain (IGP) routes of a domain.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

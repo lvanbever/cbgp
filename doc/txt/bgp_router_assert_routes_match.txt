@@ -1,0 +1,16 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router assert routes match [22m--
+
+[1mSYNOPSIS[0m
+     [1mmatch [22m<[4mpredicate[24m>
+
+[1mARGUMENTS[0m
+     <[4mpredicate[24m>
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

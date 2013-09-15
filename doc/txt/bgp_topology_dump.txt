@@ -1,0 +1,39 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp topology dump [22m-- show AS-level topology
+
+[1mSYNOPSIS[0m
+     [1mdump [22m[[1m---format=[22m] [[1m---output=[22m] [[1m---verbose[22m]
+
+[1mARGUMENTS[0m
+     [[1m---format= [4m[22mvalue[24m]
+      alternate output format
+
+     [[1m---output= [4m[22mvalue[24m]
+      name of output file
+
+     [[1m---verbose [4m[22mvalue[24m]
+      produce verbose output
+
+[1mDESCRIPTION[0m
+     This command shows the AS-level topology previously loaded with the com-
+     mand [1mbgp topology load [22m. The default output format (obtained without
+     using the [4m--format[24m option) shows a single AS relationship per line. For
+     each AS relationship, a code identifies the relationship type. A textual
+     description of the AS relationship type can be obtained by mentioning the
+     [4m--verbose[24m option.
+
+     An alternate output format can be obtained by using the [4m--format=[24m option.
+     A single alternate format is supported : "graphviz". This allows to
+     obtain an output file suitable for use with AT&T's graphviz tools, in
+     particular [1mdot [22mand [1mneato [22m.
+
+     The [4m--output=[24m option allows to redirect the command's output to a file.
+     The file name is provided as the value of the [4m--output=[24m option.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

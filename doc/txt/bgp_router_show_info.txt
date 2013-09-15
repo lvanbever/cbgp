@@ -1,0 +1,27 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router show info [22m-- show configuration and status details
+
+[1mSYNOPSIS[0m
+     [1minfo[0m
+
+[1mDESCRIPTION[0m
+     This command shows configuration and status details about the router.
+     This is useful for debugging purposes.
+
+     Here is an example of the command output:
+
+     cbgp> bgp router 1.0.0.2 show info
+     router-id : 10.0.0.2
+     as-number : 1
+     cluster-id: 10.0.0.2
+     name      : R1_2
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

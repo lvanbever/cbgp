@@ -1,0 +1,63 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer update-source [22m-- changes the source address of the BGP
+     session
+
+[1mSYNOPSIS[0m
+     [1mupdate-source [22m<[4miface-address[24m>
+
+[1mARGUMENTS[0m
+     <[4miface-address[24m>
+
+[1mDESCRIPTION[0m
+     This command configures the address used as source to establish a BGP
+     session with a neighbor router. The default source address depends on the
+     outgoing interface selected when messages are sent towards the neighbor.
+     This means that if the routing changes, the BGP session's source address
+     might also change and the BGP session might break.
+
+     If the way the BGP session is routed may change or if the BGP session
+     must be established between specific interfaces, the [1mupdate-source [22mcom-
+     mand must be used to statically define the source address.
+
+     The following example illustrates how the command can be used in a sce-
+     nario with a single BGP session between the loopback interfaces of two
+     routers connected with two parallel links. In such a scenario, the
+     default source address used on the side of router 1.0.0.1 would be
+     192.168.0.1 as this is the address of the outgoing address to reach node
+     1.0.0.2. Hence, the BGP session will not establish as the neighbor,
+     router 1.0.0.2, expects an OPEN message with source address 1.0.0.1 and
+     it will receive it with source address 192.168.0.1. To obtain the correct
+     behavior, the source addresses used for the BGP session on both sides
+     must be explicitly set to the addresses of the respective loopback inter-
+     faces using the [1mupdate-source [22mcommand.
+
+
+
+     net add node 1.0.0.1
+     net add node 1.0.0.2
+     net add link-ptp 1.0.0.1 192.168.0.1/30 1.0.0.2 192.168.0.2/30
+     net add link-ptp 1.0.0.1 192.168.0.5/30 1.0.0.2 192.168.0.6/30
+
+     # configure intradomain routing here (not shown)
+
+     bgp add router 1 1.0.0.1
+     bgp router 1.0.0.1
+       add peer 1 1.0.0.2
+       peer 1.0.0.2 update-source 1.0.0.1
+       peer 1.0.0.2 up
+       exit
+     bgp add router 1 1.0.0.2
+     bgp router 1.0.0.2
+       add peer 1 1.0.0.1
+       peer 1.0.0.1 update-source 1.0.0.2
+       peer 1.0.0.1 up
+       exit
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

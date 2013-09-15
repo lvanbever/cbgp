@@ -1,0 +1,22 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1msim stop [22m-- defines a limit on the number of simulation steps
+
+[1mSYNOPSIS[0m
+     [1mstop [22m[[1m---at=[22m]
+
+[1mARGUMENTS[0m
+     [[1m---at= [4m[22mvalue[24m]
+      simulation time
+
+[1mDESCRIPTION[0m
+     This command sets a limit on the number of simulation steps. Subsequent
+     calls of [1msim run [22mwill not process events past the specified simulation
+     time.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

@@ -1,0 +1,84 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node route add [22m-- add a static route to a node
+
+[1mSYNOPSIS[0m
+     [1madd [22m[[1m---gw=[22m] [[1m---oif=[22m] <[4mprefix[24m> <[4mweight[24m>
+
+[1mARGUMENTS[0m
+     [[1m---gw= [4m[22mvalue[24m]
+      optional gateway address
+
+     [[1m---oif= [4m[22mvalue[24m]
+      optional outgoing interface
+
+     <[4mprefix[24m> destination prefix
+
+     <[4mweight[24m> weight associated with the route
+
+[1mDESCRIPTION[0m
+     This command adds a static route towards a specific [4mprefix[24m to a node. The
+     route can take different forms.
+
+
+           [4m--oif[0m
+
+           if [4m--oif[24m is specified, then the route will send messages towards
+           the [4mprefix[24m through the specified outgoing interface.
+
+           [4m--gw[0m
+
+           if [4m--gw[24m is specified, then the route will send messages towards the
+           [4mprefix[24m through the specified gateway. A second lookup is performed
+           to find the outgoing interface for that gateway.
+
+           [4m--oif[24m and [4m--gw[0m
+
+           if both [4m--oif[24m and [4m--gw[24m are specified, then the route will send mes-
+           sages towards the [4mprefix[24m through the specified gateway. The gateway
+           is reached through the specified outgoing interface.
+
+
+     The following example illustrates how to configure static routes in a
+     simple topology composed of 3 nodes, one point-to-point link and a link
+     through a subnet:
+
+     net add node 1.0.0.1
+     net add node 1.0.0.2
+     net add node 1.0.0.3
+     net add subnet 192.168.0.0/24 transit
+     net add link 1.0.0.1 1.0.0.2
+     net add link 1.0.0.2 192.168.0.1/24
+     net add link 1.0.0.3 192.168.0.2/24
+
+     net node 1.0.0.1 route add --oif=1.0.0.2 1.0.0.2/32 1
+     net node 1.0.0.1 route add --oif=1.0.0.2 1.0.0.3/32 1
+
+     net node 1.0.0.2 route add --oif=1.0.0.1 1.0.0.1/32 1
+     net node 1.0.0.2 route add --oif=192.168.0.1 192.168.0.0/24 1
+     net node 1.0.0.2 route add --gw=192.168.0.2 1.0.0.3/32 1
+
+     net node 1.0.0.3 route add --oif=192.168.0.2 192.168.0.0/24 1
+     net node 1.0.0.3 route add --gw=192.168.0.1 1.0.0.1/32 1
+     net node 1.0.0.3 route add --gw=192.168.0.1 1.0.0.2/32 1
+
+
+
+[1mSEE ALSO[0m
+     To remove a static route, use command [1mnet node X route del [22m.
+
+     To show existing routes, use command [1mnet node X show rt [22m.
+
+
+     Another mean to obtain routing information is to rely on routing proto-
+     cols.  [4mC-BGP[24m contains two routing protocol models: an intradomain routing
+     protocol (IGP) and an interdomain routing protocol (BGP). See command [1mnet[0m
+     [1mdomain compute [22mto learn more about the IGP model configuration. See com-
+     mand [1mbgp add router [22mto learn more about the BGP model.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

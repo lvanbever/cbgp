@@ -1,0 +1,48 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet link igp-weight [22m-- set the IGP weight of one link
+
+[1mSYNOPSIS[0m
+     [1migp-weight [22m[[1m---bidir[22m] [[1m---tos[22m] <[4mweight[24m>
+
+[1mARGUMENTS[0m
+     [[1m---bidir [4m[22mvalue[24m]
+      optionally change weight in both directions
+
+     [[1m---tos [4m[22mvalue[24m]
+      optional type of service
+
+     <[4mweight[24m> new IGP weight
+
+[1mDESCRIPTION[0m
+     This command sets the IGP [4mweight[24m of the link. If the link is a point-to-
+     point link added with command [1mnet add link [22mthe option [4m--bidir[24m can be
+     specified to change the IGP weight of the link in both directions.
+
+     Here is an example that shows how the IGP weight of a link can be set to
+     100 in both directions:
+
+     net add node 1.0.0.1
+     net add node 1.0.0.2
+     net add link 1.0.0.1 1.0.0.2
+     net link 1.0.0.1 1.0.0.2 igp-weight --bidir 100
+
+
+
+     If the link supports multiple IGP weights (i.e. was created with the
+     [4m--depth[24m option), then the [4m--tos[24m option can be used to specify which IGP
+     weight to set.
+
+[1mSEE ALSO[0m
+     See command [1mnet domain compute [22mto learn how to compute shortest-paths
+     routes with the IGP model.
+
+     This command actually makes use of a simpler command to change the IGP
+     weight for an interface. This command is [1mnet node X iface igp-weight [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

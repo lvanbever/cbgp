@@ -1,0 +1,20 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router add network [22m-- originate a new network in one BGP router
+
+[1mSYNOPSIS[0m
+     [1mnetwork [22m<[4mprefix[24m>
+
+[1mARGUMENTS[0m
+     <[4mprefix[24m> new network's IP prefix
+
+[1mDESCRIPTION[0m
+     This command adds a local network to one BGP router. This network will be
+     originated (advertised) through BGP by this router.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

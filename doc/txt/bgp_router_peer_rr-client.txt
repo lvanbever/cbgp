@@ -1,0 +1,19 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer rr-client [22m-- configure a BGP neighbor as route-reflector
+     client
+
+[1mSYNOPSIS[0m
+     [1mrr-client[0m
+
+[1mDESCRIPTION[0m
+     This command configures one BGP neighbor as a route-reflector client. The
+     router where the BGP session is defined implicitly becomes a route-
+     reflector.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

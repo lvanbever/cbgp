@@ -1,0 +1,19 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet link down [22m-- change the state of one link
+
+[1mSYNOPSIS[0m
+     [1mdown[0m
+
+[1mDESCRIPTION[0m
+     This command changes the state of one link to [1mDOWN [22m. Note that after the
+     state of a link is changed, it is required to update the intra- and
+     interdomain paths, using the [1mnet domain compute [22mcommand. If the nodes run
+     BGP, it is also important to run the [1mbgp domain rescan [22mcommand.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

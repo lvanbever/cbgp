@@ -1,0 +1,35 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp route-map [22m-- add a route-map, i.e. a named BGP route filter
+
+[1mSYNOPSIS[0m
+     [1mroute-map [22m<[4mname[24m>
+
+[1mARGUMENTS[0m
+     <[4mname[24m> identifier of this route-map
+
+[1mDESCRIPTION[0m
+     This command defines a new route-map. A route-map is a BGP route filter
+     that can be shared in multiple BGP session filters. It can help reduce
+     the memory footprint of simulations in case the same filter is used in
+     multiple BGP sessions. It might also help write more readable simulation
+     scripts.
+
+[1mSUB COMMANDS[0m
+     [1m+o   add-rule[0m
+
+[1mSEE ALSO[0m
+     Route maps are used by session filters. Session filters are defined using
+     command [1mbgp router X peer Y filter [22m.
+
+
+     It is possible to list all defined route-maps using command [1mbgp show[0m
+     [1mroute-maps [22m.
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

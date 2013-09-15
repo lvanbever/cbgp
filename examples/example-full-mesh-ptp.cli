@@ -1,0 +1,40 @@
+print "\e[37;1mEXAMPLE IBGP-FULL-MESH (PTP)\e[0m\n"
+print "============================\n"
+
+print "\n"
+print "This script checks the ability to build a full-mesh\n"
+print "of iBGP sessions in a network where nodes have multiple\n"
+print "interface addresses. All the sessions must be in the\n"
+print "ESTABLISHED state.\n"
+print "\n"
+
+net add node 1.0.0.0
+net add node 1.0.0.1
+net add node 1.0.0.2
+net add link-ptp 1.0.0.0 192.168.0.1/30 1.0.0.1 192.168.0.2/30
+net add link-ptp 1.0.0.1 192.168.0.5/30 1.0.0.2 192.168.0.6/30
+
+net add domain 1 igp
+net node 1.0.0.0 domain 1
+net node 1.0.0.1 domain 1
+net node 1.0.0.2 domain 1
+net node 1.0.0.0 iface 192.168.0.1 igp-weight 1
+net node 1.0.0.1 iface 192.168.0.2 igp-weight 1
+net node 1.0.0.1 iface 192.168.0.5 igp-weight 1
+net node 1.0.0.2 iface 192.168.0.6 igp-weight 1
+net domain 1 compute
+
+bgp add router 1 1.0.0.0
+bgp add router 1 1.0.0.1
+bgp add router 1 1.0.0.2
+bgp domain 1 full-mesh
+
+sim run
+
+print "Peers of 1.0.0.0:\n"
+bgp router 1.0.0.0 show peers
+print "Peers of 1.0.0.1:\n"
+bgp router 1.0.0.1 show peers
+print "Peers of 1.0.0.2:\n"
+bgp router 1.0.0.2 show peers
+

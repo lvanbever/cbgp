@@ -1,0 +1,105 @@
+How to generate and install documentation
+=========================================
+
+Overview
+--------
+C-BGP documentation is maintained in XML files. Each C-BGP command is
+associated with 2 different XML files.
+
+  1). The first file is named LINKS_<cmd>.xml where <cmd> is the name
+  of the command. This file contains links to other nodes
+  (sub/parent/previous/next commands). This file is generated
+  automatically.
+
+  2). The second file is named <cmd>.xml where <cmd> is the name of
+  the command. This file contains the actual documentation. The first
+  version of this file is generated automatically. It is then manually
+  edited so as to contain the command and parameters description.
+
+
+Maintaining documentation
+-------------------------
+The documentation should be maintained when the behavior of an
+existing command is changed, when new commands are added or when
+commands are removed (deprecated).
+
+To check if the current documentation structure is in-line with the
+supported C-BGP commands, simply run the cbgp2doc.pl script as
+follows. Assuming you are currently in the documentation folder, run
+
+	../src/cbgp -e "show commands" | perl cbgp2doc.pl --check
+
+The invocation of C-BGP with the -e <cmd> option runs a single
+command. The purpose of the "show commands" command is to list all
+C-BGP commands along with their arguments and options. An example
+output is as follows:
+
+       bgp
+         add
+	   router <as-num> <addr>
+	 assert
+           peerings-ok
+           reachability-ok
+         clear-adj-rib
+         clear-rib
+         domain <as-number>
+           full-mesh
+           record-route [--deflection] <address|prefix>
+       (...)
+
+Each line corresponds to a single command. When a command (e.g. "bgp") has child
+commands (e.g. "add"), the child commands are listed below the parent
+command and the line is indented by 2 spaces. This allows for discovering
+the hierarchy of commands. If a command requires arguments and/or
+accepts options, these arguments and options are printed on the same
+line, just after the name of the command. Mandatory arguments are
+enclosed with < > while optional arguments are enclosed with [ ].
+
+
+Subdirectory structure
+----------------------
+The documentation directories are organized as follows
+
+  doc/
+    xml/
+      index.xml           -> source index (generated)
+      toc.xml             -> source table of content (generated)
+      nodes/              -> source XML documentation files (edited)
+        LINKS_<cmd>.xml
+        <cmd>.xml
+      xsl/                -> XSL transformation scripts
+    html/                 -> generated HTML files
+    tex/                  -> generated LaTeX files + PDF documentation
+    txt/                  -> generated TXT files
+
+
+Generating documentation
+------------------------
+To generate initial documentation, from the 'doc' directory use
+cbgp2doc.pl as follows
+
+   ../src/cbgp -e "show commands" | perl cbgp2doc.pl
+
+This will generate files into the 'xml' and 'xml/nodes'
+directories. The index.xml and toc.xml files are generated in 'xml'
+while all LINKS_<cmd>.xml and <cmd>.xml files are generated in
+'xml/nodes'. If a <cmd>.xml file already exists, it will not be
+overwritten.
+
+Then, from the 'doc/xml' directory, generate the output files in HTML,
+text and LaTeX, using the provided Makefile as follows
+
+    make
+
+Alternatively, you can generate the output separately for the various
+formats, using
+
+    make html     -> produces the HTML output
+    make tex      -> produces the LaTeX output
+    make txt      -> produces the text output, for use within c-bgp
+
+
+Install documentation on SF server
+----------------------------------
+The documentation must be installed on 'web.sourceforge.net' for
+ptoject 'c-bgp', under directory 'htdocs'.

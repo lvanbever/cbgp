@@ -1,0 +1,53 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router show route-info [22m-- show details about the decision process
+     outcome
+
+[1mSYNOPSIS[0m
+     [1mroute-info [22m[[1m---output=[22m] <[4mprefix|address|*[24m>
+
+[1mARGUMENTS[0m
+     [[1m---output= [4m[22mvalue[24m]
+      optional output file
+
+     <[4mprefix|address|*[24m> destination of interest
+
+[1mDESCRIPTION[0m
+     This command can be used to obtain details about the outcome of the deci-
+     sion process for a single destination or for all destinations. The desti-
+     nation can be specified as a prefix to perform an exact-match search in
+     the router RIB, as an address to perform a best-match search or with a
+     wildcard (*) if all destinations are requested.
+
+     Here is an example output for this command. A wildcard has been used to
+     request information about all known destinations. There are only 3 routes
+     in the example. For each destination prefix, the decision process rule
+     which made the final tie-break is displayed. The number of routes avail-
+     able for this prefix is also shown. In the example, the router knows a
+     single route for the 2nd and 3rd prefixes. For this reason, no decision
+     process rule is shown, but the message "Single choice" is displayed
+     instead.
+
+     cbgp> bgp router 1.0.0.2 show route-info *
+     prefix: 1.0.1.0/24
+     decision-process-rule: 8 [ Shortest CLUSTER-ID-LIST ]
+     decision-process-feasibles: 2
+     prefix: 1.0.2.0/24
+     decision-process-rule: 0 [ Single choice ]
+     decision-process-feasibles: 0
+     prefix: 1.0.3.0/24
+     decision-process-rule: 0 [ Single choice ]
+     decision-process-feasibles: 1
+
+
+
+[1mSEE ALSO[0m
+     If more details are needed regarding the BGP decision process outcome,
+     command [1mdebug dp [22mcan be used.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

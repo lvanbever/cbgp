@@ -1,0 +1,25 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp domain rescan [22m-- re-scan the BGP routes for changes
+
+[1mSYNOPSIS[0m
+     [1mrescan[0m
+
+[1mDESCRIPTION[0m
+     This command re-scans the BGP routes held by all the routers in the spec-
+     ified domain. It looks for changes in the routing state that would need
+     that the BGP decision process be re-run. Examples of such changes are:
+     change in the availability of IGP routes or change in the IGP metrics. If
+     any change is detected, the decision process is re-run for the concerned
+     prefixes. New events are therefore queued and the [1msim run [22mcommand should
+     be called..Pp
+
+     Note that calling this command is equivalent to calling the [1mbgp router[0m
+     [1mrescan [22mcommand individually for each router in the domain.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

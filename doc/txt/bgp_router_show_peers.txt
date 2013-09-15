@@ -1,0 +1,64 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router show peers [22m-- show the peers of one BGP router
+
+[1mSYNOPSIS[0m
+     [1mpeers[0m
+
+[1mDESCRIPTION[0m
+     This command shows the list of peers of one router as well as their sta-
+     tus. For each peer, the command shows its ASN as well as the state of the
+     BGP session with this peer. In addition, the command also shows the
+     options specific to each peer.
+
+     The session with the peer can be in one of the following states:
+
+           [1mSession State    Description[0m
+           IDLE             administratively down.
+           ACTIVE           administratively up, but not established.
+           ESTABLISHED      established and BGP routes can be exchanged.
+           OPENWAIT         OPEN message sent, but no answer received yet.
+
+
+     When the session is in [1mIDLE [22mstate, that means that the session is admin-
+     istratively down. The administrative state of the session can be changed
+     using the [1mbgp router peer up [22mcommand. The session can also be in the
+     [1mACTIVE [22mstate. This state indicates that the session is administratively
+     up but due to the current routing state, it is not established. This can
+     occur if there is no route towards the peer. The session can also be in
+     [1mESTABLISHED [22mstate. This state indicates that the session could be estab-
+     lished and that BGP routes can be exchanged with the peer. Finally, the
+     [1mOPENWAIT [22mstate indicates that the session has been partially opened. An
+     OPEN message has been sent to the peer but no answer has been received
+     yet. This can be due to the OPEN message still being in the simulator's
+     queue (if [1msim run [22mhas not been called). This can also occur in case of
+     reachability problems between the local router and the peer.
+
+     Output format:
+
+     <peer> <as-num> <status> <router-id> [<options>]
+
+
+
+     The following example shows the state of two BGP sessions. The sessions
+     are initially in the OPENWAIT state because the BGP OPEN messages have
+     been sent but are still in the simulator's queue. Then, command [1msim run[0m
+     is used to process these messages. Finally, the status of the BGP session
+     is shown again. Both sessions are now in the ESTABLISHED state.
+
+     cbgp> bgp router 1.0.0.2 show peers
+     1.0.0.1 AS1     OPENWAIT        0.0.0.0 snd-seq:1       rcv-seq:0
+     1.0.0.3 AS1     OPENWAIT        0.0.0.0 snd-seq:1       rcv-seq:0
+     cbgp> sim run
+     cbgp> bgp router 1.0.0.2 show peers
+     1.0.0.1 AS1     ESTABLISHED     10.0.0.1        snd-seq:2       rcv-seq:2
+     1.0.0.3 AS1     ESTABLISHED     10.0.0.3        snd-seq:2       rcv-seq:3
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

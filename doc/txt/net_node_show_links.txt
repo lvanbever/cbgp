@@ -1,0 +1,54 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node show links [22m--
+
+[1mSYNOPSIS[0m
+     [1mlinks[0m
+
+[1mDESCRIPTION[0m
+     This command shows information on all the links of one node.
+
+     Output format:
+
+
+     <prefix> <delay> <metric> <state> <type> [<IGP option>]
+
+     where the [4mstate[24m field can be either [1mUP [22mor [1mDOWN [22m. The [4mtype[24m field takes one
+     of the following values:
+
+           [1mValue    Description[0m
+           [1mDIRECT   [22mThe link is a direct link towards the destination, i.e.
+                                   the destination is adjacent to this node
+           [1mTUNNEL   [22mThe link is a tunnel to the destination, i.e. messages
+                                   that traverse this link will be
+                                   encapsulated, then routed towards the
+                                   tunnel end-point and hopefully decapsulated
+                                   there.
+     Finally, the [4mIGP[24m [4moption[24m field, if present, can contain the [1mIGP_ADV [22mflag
+     which means that this link is taken into account by the IGP model for
+     computing shortest-path routes (see [1mnet domain compute [22m).
+
+     Example:
+
+
+     cbgp> net node 0.0.0.1 show links
+     0.2.0.1/32      444     444     UP      DIRECT  IGP_ADV
+     0.2.0.2/32      370     370     UP      DIRECT  IGP_ADV
+
+
+
+     Example (more recent output):
+
+
+     cbgp> net node 1.0.0.3 show links
+     ROUTER  1.0.0.1 10      5       UP      adv:yes
+     ROUTER  1.0.0.2 10      4       UP      adv:yes
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

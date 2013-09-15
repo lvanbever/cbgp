@@ -1,0 +1,39 @@
+print "\e[37;1mEXAMPLE SESSION-RESET\e[0m\n"
+print "=====================\n"
+
+net add node 1.0.0.0
+net add node 2.0.0.0
+net add subnet 10/8 transit
+net add link 1.0.0.0 10.0.0.1/8
+net add link 2.0.0.0 10.0.0.2/8
+
+net add domain 1 igp
+net node 1.0.0.0 domain 1
+net node 2.0.0.0 domain 1
+net link 1.0.0.0 10.0.0.1/8 igp-weight 1
+net link 2.0.0.0 10.0.0.2/8 igp-weight 1
+net domain 1 compute
+
+bgp add router 1 1.0.0.0
+bgp router 1.0.0.0
+	add peer 1 2.0.0.0
+	peer 2.0.0.0
+		update-source 1.0.0.0
+		up
+
+bgp add router 1 2.0.0.0
+bgp router 2.0.0.0
+	add peer 1 1.0.0.0
+	peer 1.0.0.0
+		update-source 2.0.0.0
+		up
+
+bgp router 1.0.0.0 show peers
+bgp router 2.0.0.0 show peers
+
+sim queue show
+sim run
+
+bgp router 1.0.0.0 show peers
+bgp router 2.0.0.0 show peers
+

@@ -1,0 +1,80 @@
+print "\e[37;1mEXAMPLE IGP-CHANGE\e[0m\n"
+print "==================\n"
+
+# Domain AS1
+net add node 0.1.0.1
+
+# Domain AS2
+net add domain 2 igp
+net add node 0.2.0.1
+net node 0.2.0.1 domain 2
+net add node 0.2.0.2
+net node 0.2.0.2 domain 2
+net add node 0.2.0.3
+net node 0.2.0.3 domain 2
+net add link 0.2.0.1 0.2.0.3
+net add link 0.2.0.2 0.2.0.3
+net link 0.2.0.1 0.2.0.3 igp-weight --bidir 5
+net link 0.2.0.2 0.2.0.3 igp-weight --bidir 10
+net domain 2 compute
+
+# Interdomain links and routes
+net add link 0.1.0.1 0.2.0.1
+net add link 0.1.0.1 0.2.0.2
+net node 0.1.0.1 route add 0.2.0.1/32 --oif=0.2.0.1/32 0
+net node 0.1.0.1 route add 0.2.0.2/32 --oif=0.2.0.2/32 0
+net node 0.2.0.1 route add 0.1.0.1/32 --oif=0.1.0.1/32 0
+net node 0.2.0.2 route add 0.1.0.1/32 --oif=0.1.0.1/32 0
+
+# BGP in AS1
+bgp add router 1 0.1.0.1
+bgp router 0.1.0.1
+	add network 0.1/16
+	add peer 2 0.2.0.1
+	add peer 2 0.2.0.2
+	peer 0.2.0.1 up
+	peer 0.2.0.2 up
+
+# BGP in AS2
+bgp add router 2 0.2.0.1
+bgp add router 2 0.2.0.2
+bgp add router 2 0.2.0.3
+bgp domain 2 full-mesh
+
+bgp router 0.2.0.1
+	add peer 1 0.1.0.1
+	peer 0.1.0.1 next-hop-self
+	peer 0.1.0.1 up
+
+bgp router 0.2.0.2
+	add peer 1 0.1.0.1
+	peer 0.1.0.1 next-hop-self
+	peer 0.1.0.1 up
+
+sim run
+
+print "RT of 0.2.0.3 before IGP change:\n"
+net node 0.2.0.3 show rt *
+print "RIB of 0.2.0.3 before IGP change:\n"
+bgp router 0.2.0.3 show rib *
+
+print "\n*** \e[33;1mIGP weight change\e[0m ***\n\n"
+
+# Change IGP weight of link between 0.2.0.1 and 0.2.0.3
+net link 0.2.0.1 0.2.0.3 igp-weight 15
+net link 0.2.0.3 0.2.0.1 igp-weight 15
+
+# Update intradomain routes (recompute MST)
+net domain 2 compute
+
+# Scan BGP routes that could change
+bgp router 0.2.0.3 rescan
+
+sim run
+
+print "RT of 0.2.0.3 after IGP change:\n"
+net node 0.2.0.3 show rt *
+print "RIB of 0.2.0.3 after IGP change:\n"
+bgp router 0.2.0.3 show rib *
+
+print "\nDone.\n"

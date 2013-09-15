@@ -1,0 +1,19 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router show networks [22m-- list the locally originated networks
+
+[1mSYNOPSIS[0m
+     [1mnetworks[0m
+
+[1mDESCRIPTION[0m
+     This command shows the list of networks originated by this router.
+
+[1mSEE ALSO[0m
+     The command [1madd network [22mcan be used to add networks to this list.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

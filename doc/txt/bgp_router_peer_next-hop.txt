@@ -1,0 +1,23 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer next-hop [22m-- send a different next-hop to this peer
+
+[1mSYNOPSIS[0m
+     [1mnext-hop [22m<[4mnext-hop[24m>
+
+[1mARGUMENTS[0m
+     <[4mnext-hop[24m> next-hop address to be used
+
+[1mDESCRIPTION[0m
+     This command configure a router to replace the next-hop of routes sent to
+     the specified peer by a different [4mnext-hop[24m .
+
+[1mSEE ALSO[0m
+     To use the router ID as next-hop, use command [1mnext-hop [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

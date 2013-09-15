@@ -1,0 +1,35 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet ntf load [22m-- load the topology of a domain in NTF format
+
+[1mSYNOPSIS[0m
+     [1mload [22m<[4mfilename[24m>
+
+[1mARGUMENTS[0m
+     <[4mfilename[24m> name of the NTF file
+
+[1mDESCRIPTION[0m
+     This command loads the given NTF file into the simulator. An NTF file
+     contains a description of a topology. Each line of the file specifies an
+     adjacency between two nodes. The nodes are identified by their IP
+     addresses. In addition, the file also specifies the IGP metric associated
+     with the adjacency. It can also optionally define the propagation delay
+     along this adjacency.
+
+     When [4mC-BGP[24m loads the NTF file, it creates all the unexisting nodes and
+     links. It will not worry if some nodes or links already exist before the
+     [1mnet ntf load [22mcommand was called.
+
+     Input format:
+
+
+     <node-1> <node-2> <weight> [<delay>]
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

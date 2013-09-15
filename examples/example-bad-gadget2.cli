@@ -1,0 +1,101 @@
+print "\e[37;1mEXAMPLE BAD-GADGET\e[0m\n"
+print "==================\n"
+
+define MAX_STEPS 100
+
+print "\n"
+print "This script should not converge. A limit is set on the number\n"
+print "of simulation steps. When this limit is reached, the simulation\n"
+print "will be interrupted. The limit is set to $MAX_STEPS steps.\n"
+print "\n"
+
+# 2 -> 3 -> 4 -> 2
+
+net add node 1.0.0.1
+net add node 2.0.0.1
+net add node 3.0.0.1
+net add node 4.0.0.1
+net add link 1.0.0.1 2.0.0.1
+net link 1.0.0.1 2.0.0.1 igp-weight --bidir 5
+net add link 1.0.0.1 3.0.0.1
+net link 1.0.0.1 3.0.0.1 igp-weight --bidir 5
+net add link 1.0.0.1 4.0.0.1
+net link 1.0.0.1 4.0.0.1 igp-weight --bidir 5
+net add link 2.0.0.1 3.0.0.1
+net link 2.0.0.1 3.0.0.1 igp-weight --bidir 5
+net add link 2.0.0.1 4.0.0.1
+net link 2.0.0.1 4.0.0.1 igp-weight --bidir 5
+net add link 3.0.0.1 4.0.0.1
+net link 3.0.0.1 4.0.0.1 igp-weight --bidir 5
+net add domain 1 igp
+net node 1.0.0.1 domain 1
+net node 2.0.0.1 domain 1
+net node 3.0.0.1 domain 1
+net node 4.0.0.1 domain 1
+net domain 1 compute
+bgp add router 1 1.0.0.1
+bgp router 1.0.0.1
+	add network 1.0.0/24
+	add peer 2 2.0.0.1
+	peer 2.0.0.1 up
+	add peer 3 3.0.0.1
+	peer 3.0.0.1 up
+	add peer 4 4.0.0.1
+	peer 4.0.0.1 up
+	exit
+bgp add router 2 2.0.0.1
+bgp router 2.0.0.1
+	add peer 1 1.0.0.1
+	peer 1.0.0.1 up
+	add peer 3 3.0.0.1
+	peer 3.0.0.1
+		filter in
+			add-rule
+				match any
+				action "local-pref 100"
+				exit
+			exit
+		exit
+	peer 3.0.0.1 up
+	add peer 4 4.0.0.1
+	peer 4.0.0.1 up
+	exit
+bgp add router 3 3.0.0.1
+bgp router 3.0.0.1
+	add peer 1 1.0.0.1
+	peer 1.0.0.1 up
+	add peer 2 2.0.0.1
+	peer 2.0.0.1 up
+	add peer 4 4.0.0.1
+	peer 4.0.0.1
+		filter in
+			add-rule
+				match any
+				action "local-pref 100"
+				exit
+			exit
+		exit
+	peer 4.0.0.1 up
+	exit
+bgp add router 4 4.0.0.1
+bgp router 4.0.0.1
+	add peer 1 1.0.0.1
+	peer 1.0.0.1 up
+	add peer 2 2.0.0.1
+	peer 2.0.0.1
+		filter in
+			add-rule
+				match any
+				action "local-pref 100"
+				exit
+			exit
+		exit
+	peer 2.0.0.1 up
+	add peer 3 3.0.0.1
+	peer 3.0.0.1 up
+	exit
+
+sim stop --at=$MAX_STEPS
+sim run
+
+	

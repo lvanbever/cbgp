@@ -1,0 +1,20 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet add [22m--
+
+[1mSYNOPSIS[0m
+     [1madd[0m
+
+[1mSUB COMMANDS[0m
+     [1m+o   domain[0m
+     [1m+o   link[0m
+     [1m+o   link-ptp[0m
+     [1m+o   node[0m
+     [1m+o   subnet[0m
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

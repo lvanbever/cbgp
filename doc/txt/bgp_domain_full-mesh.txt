@@ -1,0 +1,28 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp domain full-mesh [22m-- create a full-mesh of BGP sessions
+
+[1mSYNOPSIS[0m
+     [1mfull-mesh[0m
+
+[1mDESCRIPTION[0m
+     This command creates a full-mesh of iBGP sessions between the routers
+     that are member of the specified domain.
+
+     Example:
+
+
+     bgp add router 1 0.1.0.0
+     bgp add router 1 0.1.0.1
+     bgp add router 1 0.1.0.2
+     bgp add router 1 0.1.0.3
+     bgp domain 1 full-mesh
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

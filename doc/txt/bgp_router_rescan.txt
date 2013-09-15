@@ -1,0 +1,23 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router rescan [22m-- re-scan the BGP routes for changes
+
+[1mSYNOPSIS[0m
+     [1mrescan[0m
+
+[1mDESCRIPTION[0m
+     This command is used to rescan the BGP routes contained in one BGP
+     router. This command must be used after changes in static and IGP routes
+     that could cause changes in the outcome of the decision process.
+
+     The command works as follows. First it builds the list of all BGP pre-
+     fixes known by the router. Then, for each prefix, it checks if the selec-
+     tion of the best route towards this prefix depends on the state of static
+     or IGP routes. If so, the decision process for this prefix is re-run.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

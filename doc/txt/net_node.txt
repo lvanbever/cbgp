@@ -1,0 +1,36 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node [22m-- enter one node's context
+
+[1mSYNOPSIS[0m
+     [1mnode [22m<[4maddr[24m>
+
+[1mARGUMENTS[0m
+     <[4maddr[24m> node's address (identifier)
+
+[1mDESCRIPTION[0m
+     Strictly speaking, this is not really a command. It rather allows you to
+     enter one node's context and enter commands that are specific to this
+     context.
+
+[1mSUB COMMANDS[0m
+     [1m+o   add[0m
+     [1m+o   coord[0m
+     [1m+o   domain[0m
+     [1m+o   iface[0m
+     [1m+o   ipip-enable[0m
+     [1m+o   name[0m
+     [1m+o   ping[0m
+     [1m+o   record-route[0m
+     [1m+o   route[0m
+     [1m+o   show[0m
+     [1m+o   traceroute[0m
+     [1m+o   traffic[0m
+     [1m+o   tunnel[0m
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

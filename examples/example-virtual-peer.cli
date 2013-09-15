@@ -1,0 +1,102 @@
+print "\e[37;1mEXAMPLE VIRTUAL-PEER\e[0m\n"
+print "====================\n"
+
+#sim options log-level debug
+
+# Domain AS1 (has an external virtual peer in AS3)
+net add domain 1 igp
+net add node 0.1.0.1
+net node 0.1.0.1 domain 1
+net add node 0.1.0.2
+net node 0.1.0.2 domain 1
+net add link 0.1.0.1 0.1.0.2
+net link 0.1.0.1 0.1.0.2 igp-weight --bidir 10
+net domain 1 compute
+
+# Domain AS2
+net add domain 2 igp
+net add node 0.2.0.1
+net node 0.2.0.1 domain 2
+net add node 0.2.0.2
+net node 0.2.0.2 domain 2
+net add link 0.2.0.1 0.2.0.2
+net link 0.2.0.1 0.2.0.2 igp-weight --bidir 10
+net domain 2 compute
+
+# Domain AS3 (virtual routers must exist)
+net add node 0.3.0.1
+
+# Interdomain links
+net add link 0.1.0.2 0.2.0.1
+net node 0.1.0.2 route add 0.2.0.1/32 --oif=0.2.0.1/32 5
+net node 0.2.0.1 route add 0.1.0.2/32 --oif=0.1.0.2/32 5
+net add link 0.1.0.1 0.3.0.1
+net node 0.1.0.1 route add 0.3.0.1/32 --oif=0.3.0.1/32 5
+net node 0.3.0.1 route add 0.1.0.1/32 --oif=0.1.0.1/32 5
+
+# BGP configuration of AS1
+bgp add router 1 0.1.0.1
+bgp add router 1 0.1.0.2
+bgp domain 1 full-mesh
+
+bgp router 0.1.0.1
+	add network 0.1/16
+	add peer 3 0.3.0.1
+	peer 0.3.0.1 virtual
+	peer 0.3.0.1 next-hop-self
+	peer 0.3.0.1 up
+
+bgp router 0.1.0.2
+	add peer 2 0.2.0.1
+	peer 0.2.0.1 next-hop-self
+	peer 0.2.0.1 up
+
+# BGP configuration of AS2
+bgp add router 2 0.2.0.1
+bgp add router 2 0.2.0.2
+bgp domain 2 full-mesh
+
+bgp router 0.2.0.1
+	add network 0.2/16
+	add peer 1 0.1.0.2
+	peer 0.1.0.2 next-hop-self
+	peer 0.1.0.2 up
+
+sim run
+
+print "RIB-in of 0.1.0.1:\n"
+bgp router 0.1.0.1 show adj-rib in * *
+print "RIB of 0.1.0.1:\n"
+bgp router 0.1.0.1 show rib *
+print "RIB of 0.2.0.2:\n"
+bgp router 0.2.0.2 show rib *
+
+print "\n*** \e[32;1mvirtual peer announces 0.3/16\e[0m ***\n\n"
+
+bgp router 0.1.0.1 peer 0.3.0.1
+  recv "BGP4|1083369618|A|0.1.0.1|1|0.3/16|3|IGP|0.3.0.1|0|0|2914:420 2914:2000 2914:3000 3130:380|NAG||"
+
+sim run
+
+print "RIB-in of 0.1.0.1:\n"
+bgp router 0.1.0.1 show adj-rib in * *
+print "RIB of 0.1.0.1:\n"
+bgp router 0.1.0.1 show rib *
+print "RIB of 0.2.0.2:\n"
+bgp router 0.2.0.2 show rib *
+
+print "\n*** \e[31;1mvirtual peer withdraws 0.3/16\e[0m ***\n\n"
+
+bgp router 0.1.0.1 peer 0.3.0.1
+  recv "BGP4|1083369618|W|0.1.0.1|1|0.3/16"
+
+sim run
+
+print "RIB-in of 0.1.0.1:\n"
+bgp router 0.1.0.1 show adj-rib in * *
+print "RIB of 0.1.0.1:\n"
+bgp router 0.1.0.1 show rib *
+print "RIB of 0.2.0.2:\n"
+bgp router 0.2.0.2 show rib *
+
+print "Done.\n"

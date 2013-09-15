@@ -1,0 +1,72 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router show rib [22m-- show the best BGP routes of one BGP router
+
+[1mSYNOPSIS[0m
+     [1mrib [22m[[1m---output=[22m] <[4mprefix|address|*[24m>
+
+[1mARGUMENTS[0m
+     [[1m---output= [4m[22mvalue[24m]
+      optional output file
+
+     <[4mprefix|address|*[24m> destination to show
+
+[1mDESCRIPTION[0m
+     This command shows the routes installed into the Loc-RIB of one router.
+     The command takes one parameter to filter the output. The filter can be
+     an IP address, an IP prefix or a wildcard (*). If the filter parameter is
+     an IP address, the result will contain the routes that match the address
+     (best-match). If the filter is an IP prefix, the result will only contain
+     the routes towards the specified prefic (exact-match). Finally, if a
+     wildcard is given, all the routes will be dumped.
+
+     The output format depends on the current mode, specified with the [1mbgp[0m
+     [1moptions show-mode [22m. We show only examples in the CISCO-like output for-
+     mat.
+
+
+     CISCO-like output format:
+
+
+     <flags> <prefix> <peer> <pref> <metric> <AS-Path> <origin>
+
+     where the [4mflags[24m field can contain the following items:
+
+           [1mFlags    Description[0m
+           [1m*        [22mthe route's next-hop is reachable.
+           [1m>        [22mthe route is a best route (installed in the Loc-RIB).
+           [1mi        [22mthe route is local (installed with theSy bgp router add
+                                   network command).
+     Moreover, the [4morigin[24m field tells how the origin router learned the net-
+     work prefix and it can take one of the following values:
+
+           [1mOrigin    Description[0m
+           [1mi         [22mthe route was learned through anSy bgp router add network
+                                    statement.
+           [1me         [22mthe route was learned from an EGP protocol.
+           ?         the route was learned through redistribution from another
+                                    protocol.
+
+
+     Note: since the only way to learn a BGP route in [4mC-BGP[24m is currently
+     through the [1mbgp router add network [22mstatement, the [4morigin[24m field will
+     always be [1mi [22m.
+
+
+     Example:
+
+
+     cbgp> bgp router 0.0.0.1 show rib *
+     i> 0.0.0.1/32   0.0.0.1 0       0       null    i
+     *> 0.1.0.1/32   0.2.0.2 0       0       2 1     i
+     *> 0.2.0.1/32   0.2.0.2 0       0       2       i
+     *> 0.2.0.2/32   0.2.0.2 0       0       2       i
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

@@ -1,0 +1,29 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet domain show info [22m-- show information on one domain
+
+[1mSYNOPSIS[0m
+     [1minfo[0m
+
+[1mDESCRIPTION[0m
+     This command only shows information on one domain. The command currently
+     shows the domain's type and whether it supports Equal-Cost-Multi-Paths
+     (ECMP) or not. Note that the results of this command depend on the
+     domain's type. See also [1mnet domain show nodes[0m
+
+
+     Example:
+
+
+     cbgp> net domain 1 show info
+     model: igp
+     ecmp : no
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

@@ -1,0 +1,63 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp options show-mode [22m-- change the format used to dump BGP routes
+
+[1mSYNOPSIS[0m
+     [1mshow-mode [22m<[4mcisco|mrt|custom[24m>
+
+[1mARGUMENTS[0m
+     <[4mcisco|mrt|custom[24m> the mode used to dump BGP routes
+
+[1mDESCRIPTION[0m
+     This command selects which output format is used to dump BGP routes.
+     There are currently three possible modes: [1mmrt [22m, [1mcisco [22mand [1mcustom [22m.
+
+     With the [1mmrt [22mmode, routes are dumped as with the [1mroute_btoa [22mtool from the
+     Multi-threaded Routing Toolkit (MRTd), using the [1m-m [22moption. In this for-
+     mat, the route's fields are written on a single line, using a '|' separa-
+     tor. Example:
+
+     _|129.250.0.85|2914|3.0.0.0/8|2914 1239 80|IGP|129.250.0.85|100|10|2914:420 2914:2000 2914:3000 65504:1239||||
+
+
+     With the [1mcisco [22mmode, routes are shown using CISCO IOS's format for the
+     [1mshow ip bgp [22mcommand. Example:
+
+     *> 3.0.0.0/8    129.250.0.85    100     10      2914 1239 80    i
+
+
+     Finally, if the specified mode is not [1mcisco [22mor [1mmrt [22m, the command argument
+     is interpreted as an output format specifier. The output format specifier
+     takes the form of a string which specifies the output format and the
+     fields that will appear in the output. The modus operandi is similar to
+     that of the [4mprintf[24m function in C.
+
+     The acceptable format specifiers are as follows:
+
+           [1mSpecifier    Field[0m
+           i            IP address of the BGP peer
+           a            ASN of the BGP peer
+           p            destination prefix
+           l            LOCAL-PREF attribute
+           P            AS-Path attribute
+           m            MED attribute
+           o            ORIGIN attribute
+           n            next-hop
+           c            COMMUNITIES attribute
+           e            EXT-COMMUNITIES attribute
+           O            ORIGINATOR-ID attribute
+           C            CLUSTER-ID-LIST attribute
+
+
+     The following example shows how to use a custom output format specifier
+     that would only show the AS-Path of routes in future route dumps.
+
+     bgp options show-mode custom "AS-Path = %P"
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

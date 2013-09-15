@@ -1,0 +1,31 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer [22m--
+
+[1mSYNOPSIS[0m
+     [1mpeer [22m<[4maddr[24m>
+
+[1mARGUMENTS[0m
+     <[4maddr[24m>
+
+[1mSUB COMMANDS[0m
+     [1m+o   down[0m
+     [1m+o   filter[0m
+     [1m+o   next-hop[0m
+     [1m+o   next-hop-self[0m
+     [1m+o   record[0m
+     [1m+o   recv[0m
+     [1m+o   reset[0m
+     [1m+o   rr-client[0m
+     [1m+o   show[0m
+     [1m+o   soft-restart[0m
+     [1m+o   up[0m
+     [1m+o   update-source[0m
+     [1m+o   virtual[0m
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

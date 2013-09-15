@@ -1,0 +1,17 @@
+print "\e[37;1mEXAMPLE EBGP-2-ROUTERS\e[0m\n"
+print "======================\n"
+
+bgp options msg-monitor "example-ebgp-2-routers.msg"
+
+bgp topology load "example-ebgp-2-routers.topo"
+bgp topology install
+
+bgp router AS1 add network 0.1/16
+
+bgp topology run
+
+sim run
+
+print "Record route from AS2 to 0.1/16\n"
+bgp router AS2 record-route 0.1/16
+print "Done.\n"

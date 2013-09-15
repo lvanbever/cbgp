@@ -1,0 +1,103 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet traffic load [22m-- load a traffic matrix
+
+[1mSYNOPSIS[0m
+     [1mload [22m[[1m---dst=[22m] [[1m---src=[22m] [[1m---summary[22m] <[4mfile[24m>
+
+[1mARGUMENTS[0m
+     [[1m---dst= [4m[22mvalue[24m]
+      optionally mention a destination type
+
+     [[1m---src= [4m[22mvalue[24m]
+      optionally mention a source type
+
+     [[1m---summary [4m[22mvalue[24m]
+      optionally request a summary of the operation
+
+     <[4mfile[24m> the traffic matrix file
+
+[1mDESCRIPTION[0m
+     This command loads a traffic matrix out of a text file. The text file
+     does not contain a "real" matrix, but instead a series of flows. A flow
+     mentions a source and a destination as well as a volume. There are dif-
+     ferent ways to identify the source and the destination of a flow.
+
+     To clarify the notion of flows, let's use the following example traffic
+     matrix file. The file has 5 lines, 4 of which describe traffic flows. The
+     first line is a header line that informs C-BGP of the columns provided in
+     the file. In the example, a flow has an IP address as source ( [4msrcIP[24m )
+     and an IP address as destination ( [4mdstIP[24m ). Flows shown in the example
+     also mention a destination mask (prefix length - [4mdstMask[24m ) and a volume (
+     [4moctets[24m ).
+
+
+     srcIP dstIP dstMask octets
+     1.0.0.1 3.0.0.1 32 1
+     1.0.0.1 3.0.0.3 32 2
+     1.0.0.3 2.0.0.1 32 4
+     2.0.0.3 1.0.0.3 32 8
+
+
+
+     When the above traffic matrix is loaded, the following actions are per-
+     formed by C-BGP. For each flow, C-BGP identifies a source node based on
+     the flow's source. From that node, a lookup is performed in the routing
+     table to find an entry towards the flow's destination. The link between
+     the node and the routing table entry's next-hop is loaded with the flow's
+     volume. Then, the process continues from the next-hop node until the des-
+     tination is reached or a node on the path has no entry in its routing ta-
+     ble.
+
+     Actually, for each flow, the operations performed by C-BGP are equivalent
+     to a call of the [1mrecord-route [22mcommand with the [4m--load[24m option. The follow-
+     ing example illustrate how the use of [1mrecord-route [22mcould be used to load
+     the first flow in the above traffic matrix file.
+
+
+     cbgp> net node 1.0.0.1 record-route --load=1 3.0.0.1
+     cbgp>
+
+
+
+     The columns/fields that can be specified in the traffic matrix header
+     line are shown in the following table along with a short description. The
+     field names are inspired from those used in the flow-tools utility (see-
+     http://code.google.com/p/flow-tools/).
+
+           [1mField name    Description[0m
+           srcAS         source AS number
+           dstAS         destination AS number
+           srcIP         source IP address
+           dstIP         destination IP address
+           srcMask       source IP prefix length (ignored)
+           dstMask       destination IP prefix length
+           octets        volume
+           packets       number of packets (ignored)
+           srcPort       source transport layer port (ignored)
+           dstPort       destination transport layer port (ignored)
+           prot          transport-layer protocol (ignored)
+
+
+     The default flow source identifier is provided by the [4msrcIP[24m field. This
+     behaviour can be modified by using the [4m--src[24m option. This option can take
+     the following values: [1mip [22mif the source is an IP address (default) or [1masn[0m
+     if the source is an AS number (ASN).
+
+     The default flow destination identifier is provided by the [4mdstIP[24m field.
+     This behaviour can be modified by using the [4m--dst[24m option. This option can
+     take the following values: [1mip [22mif the destination is an IP address
+     (default) or [1mpfx [22mif the destination is an IP prefix. In the later case,
+     an exact-match search is performed in each node's routing table to find
+     the next-hop.
+
+[1mSEE ALSO[0m
+     To obtain the load of a link, see command [1mnet link X Y show info [22mor com-
+     mand [1mnet node X iface Y load show [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

@@ -1,0 +1,36 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp add router [22m-- add a new BGP router
+
+[1mSYNOPSIS[0m
+     [1mrouter [22m<[4mas-num[24m> <[4maddr[24m>
+
+[1mARGUMENTS[0m
+     <[4mas-num[24m> the identifier (ASN) of the AS this node belongs to
+
+     <[4maddr[24m> address (identifier) of the new node
+
+[1mDESCRIPTION[0m
+     This command adds BGP support into the node identified by [4maddress[24m . The
+     node thus becomes a BGP router. The command also configures this router
+     as a member of the domain identified by [4mas-num[24m .
+
+
+     Example:
+
+
+     # Add a new node to the topology
+     net add node 0.1.0.0
+
+     # Enable BGP support on this node and
+     # place this new router in AS1
+     bgp add router 1 0.1.0.0
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

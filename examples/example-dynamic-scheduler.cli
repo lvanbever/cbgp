@@ -1,0 +1,106 @@
+print "\e[37;1mEXAMPLE DYNAMIC-SCHEDULER\e[0m\n"
+print "=========================\n"
+
+# This is the BGP DISAGREE system, using a dynamic scheduler.
+# The example allows to play with the propagation delay from the
+# source router R1 to the other two routers R2 and R3. There are
+# three possible outcomes:
+#
+# (1) If delay(R1->R2) > delay(R1->R3), the winning paths will be
+#     "1" in R3 and "3 1" in R2
+#
+# (2) If delay(R1->R2) < delay(R1->R3), the winning path will be
+#     "1" in R2 and "2 1" in R3
+#
+# (3) Otherwise, if delays are equal, the system will not converge.
+#     In case the simulation does not converge, it will stop after
+#     it reaches the maximum simulation time configured.
+#
+
+define MAX_TIME 1001
+define DELAY1_2 1
+define DELAY1_3 100
+
+require param MAX_TIME
+require param DELAY1_2
+require param DELAY1_3
+
+print "\n"
+print "Example configured as follows:\n"
+print "  +-- delay(R1->R2): $DELAY1_2\n"
+print "  +-- delay(R1->R3): $DELAY1_3\n"
+print "(edit the script file to change the configuration)\n"
+print "\n"
+
+sim options scheduler dynamic
+
+net add node 1.0.0.0
+net node 1.0.0.0 name "R1"
+net add node 2.0.0.0
+net node 2.0.0.0 name "R2"
+net add node 3.0.0.0
+net node 3.0.0.0 name "R3"
+net add link 1.0.0.0 2.0.0.0 --delay=$DELAY1_2
+net add link 1.0.0.0 3.0.0.0 --delay=$DELAY1_3
+net add link 2.0.0.0 3.0.0.0 --delay=1
+
+net add domain 1 igp
+net node 1.0.0.0 domain 1
+net node 2.0.0.0 domain 1
+net node 3.0.0.0 domain 1
+net link 1.0.0.0 2.0.0.0 igp-weight --bidir 1
+net link 1.0.0.0 3.0.0.0 igp-weight --bidir 1
+net link 2.0.0.0 3.0.0.0 igp-weight --bidir 1
+net domain 1 compute
+
+bgp add router 1 1.0.0.0
+bgp router 1.0.0.0
+  add network 255/8
+  add peer 2 2.0.0.0
+  peer 2.0.0.0 up
+  add peer 3 3.0.0.0
+  peer 3.0.0.0 up
+  exit
+
+bgp add router 2 2.0.0.0
+bgp router 2.0.0.0
+  add peer 1 1.0.0.0
+  peer 1.0.0.0 up
+  add peer 3 3.0.0.0
+  peer 3.0.0.0
+    filter in add-rule
+      match any
+      action "local-pref 100"
+      exit
+    up
+    exit
+  exit
+
+bgp add router 3 3.0.0.0
+bgp router 3.0.0.0
+  add peer 1 1.0.0.0
+  peer 1.0.0.0 up
+  add peer 2 2.0.0.0
+  peer 2.0.0.0
+    filter in add-rule
+      match any
+      action "local-pref 100"
+      exit
+    up
+    exit
+  exit
+
+sim stop --at=$MAX_TIME
+sim run
+
+print "Routes in R1:\n"
+bgp router 1.0.0.0 show rib *
+print "\n"
+
+print "Routes in R2:\n"
+bgp router 2.0.0.0 show rib *
+print "\n"
+
+print "Routes in R3:\n"
+bgp router 3.0.0.0 show rib *
+print "\n"

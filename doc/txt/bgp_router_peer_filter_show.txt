@@ -1,0 +1,42 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router peer filter show [22m-- shows the details of a filter
+
+[1mSYNOPSIS[0m
+     [1mshow[0m
+
+[1mDESCRIPTION[0m
+     This command shows the details of a given filter. It will show the
+     sequence of rules with their predicates (match) and actions.
+
+     Example
+
+     rule 0 {
+       predicate {
+         community is 0:1
+       }
+       actions {
+         deny
+       }
+     }
+     rule 1 {
+       predicate {
+         any
+       }
+       actions {
+         accept
+       }
+     }
+     default. any --> ACCEPT
+
+
+
+[1mSEE ALSO[0m
+     A filter can be defined using command [1mbgp router X peer Y filter [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

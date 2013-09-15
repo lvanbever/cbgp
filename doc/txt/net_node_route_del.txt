@@ -1,0 +1,33 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node route del [22m-- remove a static route from a node
+
+[1mSYNOPSIS[0m
+     [1mdel [22m[[1m---gw=[22m] <[4mprefix[24m> <[4miface[24m>
+
+[1mARGUMENTS[0m
+     [[1m---gw= [4m[22mvalue[24m]
+      optional gateway address
+
+     <[4mprefix[24m> destination prefix
+
+     <[4miface[24m> outgoing interface
+
+[1mDESCRIPTION[0m
+     This command removes from one node the route identified with the speci-
+     fied arguments. The route to be removed is identified by the destination
+     [4mprefix[24m and the outgoing interface ( [4miface[24m ). Wildcards (*) can be used in
+     place of the [4miface[24m arguments to remove all the routes that match the
+     specified [4mprefix[24m .
+
+[1mSEE ALSO[0m
+     To add a static route, use command [1mnet node X route add [22m.
+
+     To show existing routes, use command [1mnet node X show rt [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

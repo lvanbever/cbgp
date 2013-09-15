@@ -1,0 +1,33 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet add subnet [22m-- add a subnet (model of a LAN)
+
+[1mSYNOPSIS[0m
+     [1msubnet [22m<[4mprefix[24m> <[4mtransit|stub[24m>
+
+[1mARGUMENTS[0m
+     <[4mprefix[24m> subnet identifier (an IP prefix)
+
+     <[4mtransit|stub[24m> conditions traversal by IGP computed paths
+
+[1mDESCRIPTION[0m
+     This command adds a new subnet to the simulation. A subnet is a simpli-
+     fied model of a LAN where multiple nodes can connect. The subnet is iden-
+     tified by an IP [4mprefix[24m .
+
+     A subnet can have two different behaviours: "transit" or "stub", as spec-
+     ified with the [4mtransit|stub[24m argument. If the subnet is in transit mode,
+     that means that the IGP model can compute shortest-paths that traverse
+     this subnet. Otherwise, if the subnet is in stub mode, no shortest-path
+     can traverse the subnet (it will only be a leaf in shortest-paths trees).
+
+[1mSEE ALSO[0m
+     See command [1mnet domain X compute [22mfor more information about IGP computed
+     paths.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

@@ -1,0 +1,22 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp options auto-create [22m-- enable/disable auto-create mode
+
+[1mSYNOPSIS[0m
+     [1mauto-create [22m<[4mon-off[24m>
+
+[1mARGUMENTS[0m
+     <[4mon-off[24m> state of the auto-create option
+
+[1mDESCRIPTION[0m
+     When auto-create is on, nodes, links and BGP sessions are created and
+     configured automatically when BGP routes are read from a file (see [1mbgp[0m
+     [1mrouter load rib [22m) or received from a BGP message (see [1mbgp router peer[0m
+     [1mrecv [22m).
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

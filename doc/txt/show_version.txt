@@ -1,0 +1,23 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mshow version [22m-- show version information
+
+[1mSYNOPSIS[0m
+     [1mversion[0m
+
+[1mDESCRIPTION[0m
+     This command shows the version of [4mC-BGP[24m . The version information can be
+     used to check the compatibility with an existing script. The version
+     information displayed by the command contains a version number composed
+     of three numerical fields (main version/sub version/release). The numeri-
+     cal version is followed by informal fields which inform on compilation
+     options. For instance the version information may be followed by
+     [1m[experimental] [22mwhich means that the version has been compiled using
+     experimental features.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

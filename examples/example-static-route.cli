@@ -1,0 +1,21 @@
+print "\e[37;1mEXAMPLE STATIC ROUTING\e[0m\n"
+print "======================\n"
+
+net add node 1.0.0.1
+net add node 1.0.0.2
+net add node 1.0.0.3
+net add subnet 192.168.0.0/24 transit
+net add link 1.0.0.1 1.0.0.2
+net add link 1.0.0.2 192.168.0.1/24
+net add link 1.0.0.3 192.168.0.2/24
+
+net node 1.0.0.1 route add --oif=1.0.0.2 1.0.0.2/32 1
+net node 1.0.0.1 route add --oif=1.0.0.2 1.0.0.3/32 1
+
+net node 1.0.0.2 route add --oif=1.0.0.1 1.0.0.1/32 1
+net node 1.0.0.2 route add --oif=192.168.0.1 192.168.0.0/24 1
+net node 1.0.0.2 route add --gw=192.168.0.2 1.0.0.3/32 1
+
+net node 1.0.0.3 route add --oif=192.168.0.2 192.168.0.0/24 1
+net node 1.0.0.3 route add --gw=192.168.0.1 1.0.0.1/32 1
+net node 1.0.0.3 route add --gw=192.168.0.1 1.0.0.2/32 1

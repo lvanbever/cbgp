@@ -1,0 +1,38 @@
+print "\e[37;1mEXAMPLE IP TRACE-ROUTE\e[0m\n"
+print "======================\n"
+
+net add node 0.1.0.0
+net add node 0.2.0.0
+net add node 0.3.0.0
+net add link 0.1.0.0 0.2.0.0
+net add link 0.2.0.0 0.3.0.0
+
+net node 0.1.0.0 route add 0.2.0.0/32 --oif=0.2.0.0/32 0
+net node 0.2.0.0 route add 0.1.0.0/32 --oif=0.1.0.0/32 0
+net node 0.2.0.0 route add 0.3.0.0/32 --oif=0.3.0.0/32 0
+net node 0.3.0.0 route add 0.2.0.0/32 --oif=0.2.0.0/32 0
+
+bgp add router 1 0.1.0.0
+bgp router 0.1.0.0
+	add network 0.1/16
+	add peer 2 0.2.0.0
+	peer 0.2.0.0 up
+
+bgp add router 2 0.2.0.0
+bgp router 0.2.0.0
+	add peer 1 0.1.0.0
+	add peer 3 0.3.0.0
+	peer 0.1.0.0 up
+	peer 0.3.0.0 up
+
+bgp add router 3 0.3.0.0
+bgp router 0.3.0.0
+	add network 0.3/16
+	add peer 2 0.2.0.0
+	peer 0.2.0.0 up
+
+sim run
+
+net node 0.1.0.0 record-route 0.3.0.0
+net node 0.3.0.0 record-route 0.1.0.0
+

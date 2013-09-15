@@ -1,0 +1,29 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1msim options log-level [22m-- change the simulator log-level
+
+[1mSYNOPSIS[0m
+     [1mlog-level [22m<[4mlevel[24m>
+
+[1mARGUMENTS[0m
+     <[4mlevel[24m> new log-level
+
+[1mDESCRIPTION[0m
+     This command changes the verbosity of the simulator log. The available
+     log levels are as follows:
+
+           [1mLog-level code    Description[0m
+           [1meverything        [22mEvery log message is written.
+           [1mdebug             [22mDebug and error messages are written.
+           [1mwarning           [22mError messages are written.
+           [1msevere            [22mOnly severe warning and fatal error messages are
+                                            written.
+           [1mfatal             [22mOnly fatal error messages are written.
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

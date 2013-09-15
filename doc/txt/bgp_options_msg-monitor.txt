@@ -1,0 +1,48 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp options msg-monitor [22m-- activate the recording of BGP messages
+
+[1mSYNOPSIS[0m
+     [1mmsg-monitor [22m<[4moutput-file[24m>
+
+[1mARGUMENTS[0m
+     <[4moutput-file[24m> the trace output file
+
+[1mDESCRIPTION[0m
+     This command activates the recording of exchanged BGP messages. The mes-
+     sages are written in the specified [1moutput-file [22m. If the file does not
+     exist, it is created. If it already exists, the file is overwritten. The
+     BGP messages are written in MRTd format. Each message is prefixed with
+     the IP address of the router that received the message. It should there-
+     fore be easy to extract messages sent to a specific destination using the
+     first field. Existing MRT analysis script can then directly be used with
+     the MRTD output.
+
+
+     Output format for an UPDATE message:
+
+
+     dest-ip|BGP4|time|A|peer-ip|peer-as|prefix|as-path|origin|next-hop|local-pref|med|communities
+
+
+
+     Output format for a WITHDRAW message:
+
+
+     dest-ip|BGP4|time|W|peer-ip|peer-as|prefix
+
+
+
+     Example:
+
+
+     0.2.0.0|BGP4|0.00|A|0.1.0.0|1|0.1.0.0/16|1|IGP|0.1.0.0|100|0|
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

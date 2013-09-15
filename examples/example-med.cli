@@ -1,0 +1,263 @@
+print "\e[37;1mEXAMPLE MED\e[0m\n"
+print "===========\n"
+
+define MED_TYPE deterministic
+#define MED_TYPE always-compare
+
+bgp options med $MED_TYPE
+
+print "\nSelected option: \"$MED_TYPE\"\n\n"
+
+# Domain 1
+net add domain 1 igp
+net add node 0.1.0.1
+net node 0.1.0.1 domain 1
+net add node 0.1.0.2
+net node 0.1.0.2 domain 1
+net add node 0.1.0.3
+net node 0.1.0.3 domain 1
+net add link 0.1.0.1 0.1.0.2
+net add link 0.1.0.1 0.1.0.3
+net link 0.1.0.1 0.1.0.2 igp-weight --bidir 5
+net link 0.1.0.1 0.1.0.3 igp-weight --bidir 20
+net domain 1 compute
+
+# Domain 2
+net add domain 2 igp
+net add node 0.2.0.1
+net node 0.2.0.1 domain 2
+net add node 0.2.0.2
+net node 0.2.0.2 domain 2
+net add node 0.2.0.3
+net node 0.2.0.3 domain 2
+net add link 0.2.0.1 0.2.0.2
+net add link 0.2.0.1 0.2.0.3
+net link 0.2.0.1 0.2.0.2 igp-weight --bidir 15
+net link 0.2.0.1 0.2.0.3 igp-weight --bidir 5
+net domain 2 compute
+
+# Domain 3
+net add domain 3 igp
+net add node 0.3.0.1
+net node 0.3.0.1 domain 3
+net add node 0.3.0.2
+net node 0.3.0.2 domain 3
+net add node 0.3.0.3
+net node 0.3.0.3 domain 3
+net add link 0.3.0.1 0.3.0.2
+net add link 0.3.0.1 0.3.0.3
+net add link 0.3.0.2 0.3.0.3
+net link 0.3.0.1 0.3.0.2 igp-weight --bidir 5
+net link 0.3.0.1 0.3.0.3 igp-weight --bidir 5
+net link 0.3.0.2 0.3.0.3 igp-weight --bidir 5
+net domain 3 compute
+
+# Domain 4
+net add domain 4 igp
+net add node 0.4.0.1
+net node 0.4.0.1 domain 4
+net add node 0.4.0.2
+net node 0.4.0.2 domain 4
+net add node 0.4.0.3
+net node 0.4.0.3 domain 4
+net add node 0.4.0.4
+net node 0.4.0.4 domain 4
+net add node 0.4.0.5
+net node 0.4.0.5 domain 4
+net add link 0.4.0.1 0.4.0.5
+net add link 0.4.0.2 0.4.0.5
+net add link 0.4.0.3 0.4.0.5
+net add link 0.4.0.4 0.4.0.5
+net link 0.4.0.1 0.4.0.5 igp-weight --bidir 5
+net link 0.4.0.2 0.4.0.5 igp-weight --bidir 5
+net link 0.4.0.3 0.4.0.5 igp-weight --bidir 5
+net link 0.4.0.4 0.4.0.5 igp-weight --bidir 5
+net domain 4 compute
+
+# Interdomain links
+net add link 0.1.0.2 0.2.0.2
+net node 0.1.0.2 route add 0.2.0.2/32 --oif=0.2.0.2/32 1
+net node 0.2.0.2 route add 0.1.0.2/32 --oif=0.1.0.2/32 1
+net add link 0.1.0.3 0.2.0.3
+net node 0.1.0.3 route add 0.2.0.3/32 --oif=0.2.0.3/32 1
+net node 0.2.0.3 route add 0.1.0.3/32 --oif=0.1.0.3/32 1
+net add link 0.1.0.3 0.3.0.3
+net node 0.1.0.3 route add 0.3.0.3/32 --oif=0.3.0.3/32 1
+net node 0.3.0.3 route add 0.1.0.3/32 --oif=0.1.0.3/32 1
+net add link 0.2.0.1 0.4.0.4
+net node 0.2.0.1 route add 0.4.0.4/32 --oif=0.4.0.4/32 1
+net node 0.4.0.4 route add 0.2.0.1/32 --oif=0.2.0.1/32 1
+net add link 0.2.0.3 0.4.0.3
+net node 0.2.0.3 route add 0.4.0.3/32 --oif=0.4.0.3/32 1
+net node 0.4.0.3 route add 0.2.0.3/32 --oif=0.2.0.3/32 1
+net add link 0.3.0.1 0.4.0.1
+net node 0.3.0.1 route add 0.4.0.1/32 --oif=0.4.0.1/32 1
+net node 0.4.0.1 route add 0.3.0.1/32 --oif=0.3.0.1/32 1
+net add link 0.3.0.2 0.4.0.2
+net node 0.3.0.2 route add 0.4.0.2/32 --oif=0.4.0.2/32 1
+net node 0.4.0.2 route add 0.3.0.2/32 --oif=0.3.0.2/32 1
+
+# AS 1
+bgp add router 1 0.1.0.1
+bgp add router 1 0.1.0.2
+bgp add router 1 0.1.0.3
+bgp domain 1 full-mesh
+
+bgp router 0.1.0.1
+	add network 0.1.0/17
+	add network 0.1.128/17
+
+bgp router 0.1.0.2
+	add peer 2 0.2.0.2
+	peer 0.2.0.2 next-hop-self
+#	 peer 0.2.0.2
+#		 filter out
+#			 add-rule
+#				 match any
+#				 action "metric internal"
+#				 exit
+#			 exit
+#		 exit
+	peer 0.2.0.2 up
+
+bgp router 0.1.0.3
+	add peer 2 0.2.0.3
+	add peer 3 0.3.0.3
+	peer 0.2.0.3 next-hop-self
+#	 peer 0.2.0.3
+#		 filter out
+#			 add-rule
+#				 match any
+#				 action "metric internal"
+#				 exit
+#			 exit
+#		 exit
+	peer 0.3.0.3 next-hop-self
+#	 peer 0.3.0.3
+#		 filter out
+#			 add-rule
+#				 match any
+#				 action "metric internal"
+#				 exit
+#			 exit
+#		 exit
+	peer 0.2.0.3 up
+	peer 0.3.0.3 up
+
+# AS 2
+bgp add router 2 0.2.0.1
+bgp add router 2 0.2.0.2
+bgp add router 2 0.2.0.3
+bgp domain 2 full-mesh
+
+bgp router 0.2.0.1
+	add peer 4 0.4.0.4
+	peer 0.4.0.4 next-hop-self
+	peer 0.4.0.4
+		filter out
+			add-rule
+				match any
+				action "metric internal"
+				exit
+			exit
+		exit
+	peer 0.4.0.4 up
+
+bgp router 0.2.0.2
+	add peer 1 0.1.0.2
+	peer 0.1.0.2 next-hop-self
+	peer 0.1.0.2 up
+
+bgp router 0.2.0.3
+	add peer 1 0.1.0.3
+	add peer 4 0.4.0.3
+	peer 0.1.0.3 next-hop-self
+	peer 0.4.0.3 next-hop-self
+	peer 0.4.0.3
+		filter out
+			add-rule
+				match any
+				action "metric internal"
+				exit
+			exit
+		exit
+	peer 0.1.0.3 up
+	peer 0.4.0.3 up
+
+# AS 3
+bgp add router 3 0.3.0.1
+bgp add router 3 0.3.0.2
+bgp add router 3 0.3.0.3
+bgp domain 3 full-mesh
+
+bgp router 0.3.0.1
+	add peer 4 0.4.0.1
+	peer 0.4.0.1 next-hop-self
+	peer 0.4.0.1
+		filter out
+			add-rule
+				match any
+				action "metric internal"
+				exit
+			exit
+		exit
+	peer 0.4.0.1 up
+
+bgp router 0.3.0.2
+	add peer 4 0.4.0.2
+	peer 0.4.0.2 next-hop-self
+	peer 0.4.0.2
+		filter out
+			add-rule
+				match any
+				action "metric internal"
+				exit
+			exit
+		exit
+	peer 0.4.0.2 up
+
+bgp router 0.3.0.3
+	add peer 1 0.1.0.3
+	peer 0.1.0.3 next-hop-self
+	peer 0.1.0.3 up
+
+# AS 4
+bgp add router 4 0.4.0.1
+bgp add router 4 0.4.0.2
+bgp add router 4 0.4.0.3
+bgp add router 4 0.4.0.4
+bgp add router 4 0.4.0.5
+bgp domain 4 full-mesh
+
+bgp router 0.4.0.1
+	add peer 3 0.3.0.1
+	peer 0.3.0.1 next-hop-self
+	peer 0.3.0.1 up
+
+bgp router 0.4.0.2
+	add peer 3 0.3.0.2
+	peer 0.3.0.2 next-hop-self
+	peer 0.3.0.2 up
+
+bgp router 0.4.0.3
+	add peer 2 0.2.0.3
+	peer 0.2.0.3 next-hop-self
+	peer 0.2.0.3 up
+
+bgp router 0.4.0.4
+	add peer 2 0.2.0.1
+	peer 0.2.0.1 next-hop-self
+	peer 0.2.0.1 up
+
+sim run
+
+print "The script traces the route chosen by 0.4.0.5 to reach 0.1.0.1.\n"
+print "The selected route depends on the type of MED-based rule that\n"
+print "has been chosen with the 'bgp options med <med-rule>':\n"
+print "(1) \"deterministic\": the egress will be 0.4.0.1\n"
+print "(2) \"always-compare\": the egress will be 0.4.0.3\n"
+print "\n"
+net node 0.4.0.5 record-route 0.1.0.1
+print "\n"
+
+print "Done.\n"

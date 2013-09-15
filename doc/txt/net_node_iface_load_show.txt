@@ -1,0 +1,34 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node iface load show [22m-- show the load and capacity of a link
+
+[1mSYNOPSIS[0m
+     [1mshow[0m
+
+[1mDESCRIPTION[0m
+     This command shows the load and the capacity of a link.
+
+     In the following example, the load of the interface 1.0.0.2 on node
+     1.0.0.1 is shown. The output mentions the load (value is 3) and the
+     capacity (value is 0).
+
+
+     cbgp> net node 1.0.0.1 iface 1.0.0.2 load show
+     3      0
+     cbgp>
+
+
+
+[1mSEE ALSO[0m
+     To obtain the load of all the links, consider using command [1mnet traffic[0m
+     [1msave [22m.
+
+     The capacity of a link can be specified when the link is created (see
+     command [1mnet add link [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

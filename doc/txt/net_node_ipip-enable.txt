@@ -1,0 +1,24 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet node ipip-enable [22m-- activate tunneling (IP-in-IP)
+
+[1mSYNOPSIS[0m
+     [1mipip-enable[0m
+
+[1mDESCRIPTION[0m
+     This command enables the support for tunneling (IP-in-IP protocol). Once
+     IP-in-IP is enabled, the specified node can behave as a tunnel end-point.
+     This means that if it receives an encapsulated packet and the destination
+     address in the encapsulation header is itself, then it will decapsulate
+     the packet and deliver it locally or try to forward it depending on the
+     encapsulated packet.
+
+     IMPORTANT NOTE: due to changes in the network topology data structure,
+     the tunneling feature is currently broken.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

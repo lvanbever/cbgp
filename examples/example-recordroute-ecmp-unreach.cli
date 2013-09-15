@@ -1,0 +1,49 @@
+print "\e[37;1mEXAMPLE RECORD-ROUTE ECMP UNREACH\e[0m\n"
+print "=================================\n"
+
+# -------------------------------------------------------------------
+# Physical topology
+# -------------------------------------------------------------------
+net add node --no-loopback 0.0.0.1
+net add node --no-loopback 0.0.0.2
+net add node --no-loopback 0.0.0.3
+net add node --no-loopback 0.0.0.4
+net node 0.0.0.1 add iface 0.0.0.1/32 loopback
+net add link 0.0.0.2 0.0.0.1
+net node 0.0.0.2 add iface 0.0.0.2/32 loopback
+net add link 0.0.0.2 0.0.0.4
+net add link 0.0.0.3 0.0.0.1
+net node 0.0.0.3 add iface 0.0.0.3/32 loopback
+net add link 0.0.0.3 0.0.0.4
+net node 0.0.0.4 add iface 0.0.0.4/32 loopback
+
+# -------------------------------------------------------------------
+# Static routing
+# -------------------------------------------------------------------
+
+# -------------------------------------------------------------------
+# IGP routing
+# -------------------------------------------------------------------
+net add domain 1 igp
+net node 0.0.0.1 domain 1
+net node 0.0.0.2 domain 1
+net node 0.0.0.3 domain 1
+net node 0.0.0.4 domain 1
+net node 0.0.0.1 iface 0.0.0.2/32 igp-weight 1
+net node 0.0.0.1 iface 0.0.0.3/32 igp-weight 1
+net node 0.0.0.2 iface 0.0.0.1/32 igp-weight 1
+net node 0.0.0.2 iface 0.0.0.4/32 igp-weight 1
+net node 0.0.0.3 iface 0.0.0.1/32 igp-weight 1
+net node 0.0.0.3 iface 0.0.0.4/32 igp-weight 1
+net node 0.0.0.4 iface 0.0.0.2/32 igp-weight 1
+net node 0.0.0.4 iface 0.0.0.3/32 igp-weight 1
+net domain 1 compute
+
+# Disable interfaces towards 0.0.0.4
+net node 0.0.0.2 iface 0.0.0.4/32 down
+net node 0.0.0.3 iface 0.0.0.4/32 down
+
+# Trace the route with --ecmp option
+# -> two partial paths should be returned with status UNREACH
+net node 0.0.0.1 record-route --ecmp 0.0.0.4
+

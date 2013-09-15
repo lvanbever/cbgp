@@ -1,0 +1,24 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp topology install [22m-- create routers, links and sessions from an AS-
+     level topology
+
+[1mSYNOPSIS[0m
+     [1minstall[0m
+
+[1mDESCRIPTION[0m
+     This command shall be used in combination with the command [1mbgp topology[0m
+     [1mload [22m. It is used to create a complete network based on an AS-level
+     topology.  [4mC-BGP[24m will create one BGP router for each AS and create links
+     between these routers according to the relationships specified in the AS-
+     level topology.  [4mC-BGP[24m will also configure BGP sessions between the
+     routers.  [4mC-BGP[24m can also setup filters that correspond to the business
+     relationships specified in the input file, using the command [1mbgp topology[0m
+     [1mpolicies [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

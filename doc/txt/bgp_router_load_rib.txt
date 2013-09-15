@@ -1,0 +1,40 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp router load rib [22m-- load a real router's RIB into C-BGP
+
+[1mSYNOPSIS[0m
+     [1mrib [22m[[1m---autoconf[22m] [[1m---force[22m] [[1m---format=[22m] [[1m---summary[22m] <[4mfile[24m>
+
+[1mARGUMENTS[0m
+     [[1m---autoconf [4m[22mvalue[24m]
+      optionally autoconfigure new peers
+
+     [[1m---force [4m[22mvalue[24m]
+      optionally force routes to load
+
+     [[1m---format= [4m[22mvalue[24m]
+      optionally specify an alternate input format
+
+     [[1m---summary [4m[22mvalue[24m]
+      optionally report a summary of the operation
+
+     <[4mfile[24m> name of the RIB dump file
+
+[1mDESCRIPTION[0m
+     This command is used to load into one BGP router a dump of a [4mRouting[0m
+     [4mInformation[24m [4mBase[24m (RIB) captured on a real router. The RIB dump must be
+     provided in ASCII MRT format.
+
+     Note: [4mC-BGP[24m performs some consistency checks on the routes that are
+     loaded. First, the IP address and the AS number of the peer router speci-
+     fied in the MRT route records must correspond to the given router. Sec-
+     ond, the IP address of the BGP next-hop must correspond to an existing
+     peer of the router. This constraint might be too strong and might be
+     relaxed in the future.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

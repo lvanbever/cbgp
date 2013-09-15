@@ -1,0 +1,74 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mbgp topology load [22m-- load an AS-level topology
+
+[1mSYNOPSIS[0m
+     [1mload [22m[[1m---addr-sch=[22m] [[1m---format=[22m] <[4mfile[24m>
+
+[1mARGUMENTS[0m
+     [[1m---addr-sch= [4m[22mvalue[24m]
+      router addressing scheme (default/local)
+
+     [[1m---format= [4m[22mvalue[24m]
+      format of the AS-level topology file
+
+     <[4mfile[24m> name of the AS-level topology file
+
+[1mDESCRIPTION[0m
+     This command loads an AS-level topology from the specified [1mfile [22m. Differ-
+     ent input file formats can be used.
+
+     The [1m--format [22moption specifies the expected format of the input file. The
+     default is "rexford". The other possible formats are "caida" and
+     "meulle". Each of these file formats was used by different authors of AS-
+     level topology inferrence algorithms.
+
+           [4mrexford[24m is based on work by L. Subramanian et al ("Characterizing
+           the Internet Hierarchy from Multiple Vantage Points", INFOCOM
+           2002). I you are wondering where the name "rexford" comes from, it
+           is the name of one of the paper's authors.
+
+           [4mcaida[24m was used by the Cooperative Association for Internet Data
+           Analysis (CAIDA) to publish its AS relationships files. See-
+           http://www.caida.org/data/active/as-relationshipsfor more details.
+
+           [4mmeulle[24m was proposed by Mickael Meulle (from France Telecom RD, now
+           Orange Labs). Seehttp://perso.rd.francetelecom.fr/meullefor more
+           details.
+
+
+     Once an AS-level topology has been loaded, [4mC-BGP[24m can optionnally build a
+     network where each domain (AS) is composed of a single router (see the
+     command [1mbgp topology install [22m). The identifier (IP address) of each
+     router is derived from its domain's number (ASN) according to an address-
+     ing scheme. There are currently two possible addressing schemes that can
+     be selected using the [1m--addr-sch [22moption. The default addressing scheme
+     will derive a router's IP address by multiplying the ASN by 65536. For
+     instance, if the router is in AS7018, then its IP address will be
+     27.106.0.0. This can be changed if the [4m--addr-sch[24m option is used with the
+     value "local". In this case the IP address of our example would become
+     0.0.27.106.
+
+     In the "rexford" file format, each line of the file specifies a relation-
+     ship between two Internet domains, as follows:
+
+     <domain-1> <domain-2> <relationship> [<delay>]
+
+     The [1mrelationship [22mfield can be one of the following:
+
+           [1mValue    Meaning[0m
+           0        peer-to-peer relationship
+           1        provider-to-customer relationship
+
+
+[1mSEE ALSO[0m
+     The following commands are also important to setup a simulation based on
+     an AS-level topology: [1mbgp topology install [22m, [1mbgp topology policies [22mand
+     [1mbgp topology run [22m.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

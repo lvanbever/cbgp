@@ -1,0 +1,25 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet domain show nodes [22m-- show the nodes that belong to one domain
+
+[1mSYNOPSIS[0m
+     [1mnodes[0m
+
+[1mDESCRIPTION[0m
+     This command lists the nodes that belong to one domain.
+
+     Example:
+
+
+     cbgp> net domain 1 show
+     0.1.0.0
+     0.1.0.1
+
+
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

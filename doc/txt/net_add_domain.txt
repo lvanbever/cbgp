@@ -1,0 +1,32 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mnet add domain [22m-- create an IGP domain
+
+[1mSYNOPSIS[0m
+     [1mdomain [22m<[4mid[24m> <[4mtype[24m>
+
+[1mARGUMENTS[0m
+     <[4mid[24m> domain identifier (an integer)
+
+     <[4mtype[24m> domain type
+
+[1mDESCRIPTION[0m
+     Create a new IGP domain identified by [4mid[24m . An IGP domain is used to group
+     nodes that participate in an IGP protocol (for example IS-IS or OSPF). In
+     C-BGP, the IGP protocol model is static, meaning that the IGP routes com-
+     putation is done in a centralized way and without exchanging messages.
+
+     C-BGP was designed to support multiple IGP domain types. There is cur-
+     rently a single domain [4mtype[24m supported: [1migp [22m. This domain type computes
+     shortest-path trees between all its members according to the IGP weights
+     assigned to the links.
+
+     Use the  command to assign a node to an IGP domain. Use the  command to
+     assign an IGP weight to an existing link.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

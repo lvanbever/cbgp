@@ -1,0 +1,37 @@
+print "\e[37;1mEXAMPLE EBGP-3-ROUTERS\e[0m\n"
+print "======================\n"
+
+bgp options msg-monitor "example-ebgp-3-routers.msg"
+
+bgp topology load "example-ebgp-3-routers.topo"
+bgp topology install
+
+bgp router AS1 add network 0.1/16
+bgp router AS2 add network 0.2/16
+bgp router AS3 add network 0.3/16
+
+bgp router AS1
+	peer AS2
+		filter in
+			add-rule
+				match "prefix is 0.3/16"
+				action "local-pref 100"
+
+bgp router AS1
+	peer AS3
+		filter in
+			add-rule
+				match "prefix is 0.2/16"
+				action "local-pref 100"
+
+bgp topology run
+
+sim run
+
+print "RIB of AS1\n"
+bgp router AS1 show rib *
+print "RIB of AS2\n"
+bgp router AS2 show rib *
+print "RIB of AS3\n"
+bgp router AS3 show rib *
+print "Done.\n"

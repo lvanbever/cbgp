@@ -1,0 +1,21 @@
+C-BGP Documentation              User's manual             C-BGP Documentation
+
+[1mNAME[0m
+     [1mshow mrt [22m-- show the content of an MRT file (binary)
+
+[1mSYNOPSIS[0m
+     [1mmrt [22m<[4mfile[24m> <[4mpredicate[24m>
+
+[1mARGUMENTS[0m
+     <[4mfile[24m> name of the MRT file
+
+     <[4mpredicate[24m> route filter predicate
+
+[1mBUGS[0m
+     This command has been removed.
+
+[1mAUTHORS[0m
+     Written by Bruno Quoitin <bruno.quoitin@umons.ac.be>, Networking Lab,
+     Computer Science Institute, Science Faculty, University of Mons, Belgium.
+
+

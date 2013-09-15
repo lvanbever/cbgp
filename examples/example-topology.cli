@@ -1,0 +1,25 @@
+print "\e[37;1mEXAMPLE TOPOLOGY\e[0m\n"
+print "================\n"
+
+# The file "as.relation" used in this script contains an Internet
+# topology inferred from real routing tables gathered in transit
+# ASes. This file can be obtained from:
+# http://www.cs.berkeley.edu/~sagarwal/research/BGP-hierarchy
+
+print "Load topology...\n"
+bgp topology load "as.relation"
+bgp topology install
+bgp topology policies
+
+bgp router AS7018 add network 27.206/16
+
+bgp topology run
+
+print "Run simulation...\n"
+sim run
+
+print "\nRIB of router 0.209.0.0 (AS209)\n"
+bgp router AS209 show rib 27.206/16
+print "\nRIB of router 0.1.0.0 (AS1)\n"
+bgp router AS1 show rib 27.206/16
+print "\nDone.\n"
